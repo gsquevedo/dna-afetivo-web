@@ -7,7 +7,8 @@
 
       <div class="menu-toggle" @click="toggleMenu">
         <n-icon size="40">
-          <MenuIcon />
+          <MenuIcon v-if="!isMenuOpen" />
+          <CloseIcon v-else/>
         </n-icon>
       </div>
 
@@ -26,7 +27,7 @@
 <script setup>
 import { ref } from 'vue';
 import logo from "../../assets/logo.png";
-import { Menu as MenuIcon } from '@vicons/ionicons5';
+import { Menu as MenuIcon,  Close as CloseIcon } from '@vicons/ionicons5';
 import { NIcon } from "naive-ui";
 
 const isMenuOpen = ref(false);

@@ -1,16 +1,21 @@
-// backend/src/index.js
 const express = require('express');
-const app = express();
-const port = 3000;
+const { db, auth } = require('./firebase-admin');
 
-// Middleware para parsing de JSON
+const app = express();
+
 app.use(express.json());
 
-// Exemplo de rota
-app.get('/api/users', (req, res) => {
-  res.json({ users: [] }); // Implemente a lógica para retornar os usuários do banco de dados
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const userRecord = await auth.getUserByEmail(email);
+    // Lógica de autenticação adicional aqui
+    res.json({ message: 'Usuário autenticado', user: userRecord });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
-app.listen(port, () => {
-  console.log(`Backend server is running at http://localhost:${port}`);
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
 });

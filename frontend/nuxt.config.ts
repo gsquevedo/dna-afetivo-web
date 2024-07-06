@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/global.css'
   ],
+  plugins: [
+    '~/plugins/firebase.js'
+  ],
   hooks: {
     'pages:extend'(routes) {
       routes.push(
@@ -37,5 +40,5 @@ export default defineNuxtConfig({
         },
       );
     },
-  },
+  }
 })
