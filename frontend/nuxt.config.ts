@@ -1,11 +1,12 @@
 import { resolve } from 'path';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
   components: true,
+  modules: ['@pinia/nuxt'],
   runtimeConfig: {
     public: {
       firebaseApiKey: process.env.FIREBASE_API_KEY,
@@ -55,4 +56,4 @@ export default defineNuxtConfig({
       );
     },
   }
-})
+});

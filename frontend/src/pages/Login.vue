@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
@@ -25,7 +26,24 @@ export default {
     };
   },
   methods: {
-    
+    async login() {
+      console.log("Função login chamada");
+      try {
+        const response = await axios.post('http://localhost:3000/login', {
+          email: this.email,
+          password: this.password
+        });
+        console.log("aquiii")
+
+      } catch (error) {
+        console.log("Erro na requisição:", error);
+        if (error.response) {
+          this.errorMessage = error.response.data.error || 'Erro ao fazer login. Verifique suas credenciais.';
+        } else {
+          this.errorMessage = 'Erro de conexão. Tente novamente mais tarde.';
+        }
+      }
+    }
   }
 };
 </script>
