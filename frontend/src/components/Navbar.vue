@@ -8,7 +8,7 @@
       <div class="menu-toggle" @click="toggleMenu">
         <n-icon size="40">
           <MenuIcon v-if="!isMenuOpen" />
-          <CloseIcon v-else/>
+          <CloseIcon v-else />
         </n-icon>
       </div>
 
@@ -19,21 +19,33 @@
         <li><nuxt-link to="/contact" active-class="active">Contato</nuxt-link></li>
         <li><nuxt-link to="/login" active-class="active">Login</nuxt-link></li>
       </ul>
-      
     </nav>
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script>
 import logo from "../../assets/logo.png";
-import { Menu as MenuIcon,  Close as CloseIcon } from '@vicons/ionicons5';
+import { Menu as MenuIcon, Close as CloseIcon } from '@vicons/ionicons5';
 import { NIcon } from "naive-ui";
 
-const isMenuOpen = ref(false);
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
+export default {
+  data() {
+    return {
+      logo,
+      isMenuOpen: false
+    };
+  },
+  methods: {
+    toggleMenu() {
+      console.log('Toggle menu clicked');
+      this.isMenuOpen = !this.isMenuOpen;
+    }
+  },
+  components: {
+    MenuIcon,
+    CloseIcon,
+    NIcon
+  }
 };
 </script>
 
@@ -52,6 +64,7 @@ const toggleMenu = () => {
   justify-content: space-between;
   padding: 10px 30px;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .navbar-logo img {
@@ -92,6 +105,18 @@ a:hover {
 .menu-toggle {
   display: none;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.menu-toggle n-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Responsividade */
@@ -99,6 +124,7 @@ a:hover {
   .navbar-content {
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
   }
 
   .navbar-links {
@@ -106,6 +132,7 @@ a:hover {
     width: 100%;
     max-height: 0;
     overflow: hidden;
+    transition: max-height 0.3s ease;
   }
 
   .navbar-links.open {
@@ -124,10 +151,10 @@ a:hover {
   }
 
   .menu-toggle {
-    display: flex;
-    position: absolute;
-    top: 35px;
-    right: 20px;
+    display: flex; 
+    top: 30px; 
+    right: 10px; 
   }
 }
+
 </style>

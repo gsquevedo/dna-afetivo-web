@@ -1,43 +1,25 @@
 <template>
   <div class="layout">
-    <Navbar v-if="showNavbar"/>
+    <!-- Verifica se a rota não é '/login' antes de renderizar a Navbar -->
+    <Navbar v-if="!isLoginPage"/>
     <NuxtPage />
   </div>
 </template>
 
-<script setup>
-import { computed, onMounted, watchEffect } from 'vue';
-import { useRoute } from 'vue-router';
-import { useNavbarStore } from '../store/navbar';
+<script>
 import Navbar from "../components/Navbar.vue";
 
-// Obtenha a store
-const navbarStore = useNavbarStore();
-
-// Crie uma referência reativa para controlar a visibilidade da Navbar
-const showNavbar = computed(() => navbarStore.showNavbar);
-
-// Função que verifica a rota atual e ajusta a visibilidade da Navbar
-const checkAuth = () => {
-  const route = useRoute();
-
-  // Verifique se a rota é '/login'
-  if (route.path === '/login') {
-    navbarStore.hideNavbar();
-  } else {
-    navbarStore.showNavbar();
+export default {
+  components: {
+    Navbar
+  },
+  computed: {
+    isLoginPage() {
+      // Verifica a rota atual
+      return this.$route.path === '/login';
+    }
   }
 };
-
-// Verifique a rota atual ao montar o componente
-onMounted(() => {
-  checkAuth();
-});
-
-// Reaja às mudanças de rota
-watchEffect(() => {
-  checkAuth();
-});
 </script>
 
 <style scoped>
