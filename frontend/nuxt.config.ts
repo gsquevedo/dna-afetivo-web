@@ -1,7 +1,4 @@
 import { resolve } from 'path';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -9,13 +6,13 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   runtimeConfig: {
     public: {
-      firebaseApiKey: process.env.FIREBASE_API_KEY,
-      firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
-      firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
-      firebaseStorageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-      firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-      firebaseAppId: process.env.FIREBASE_APP_ID,
-      firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
+      nuxtPublicApiKey: process.env.NUXT_PUBLIC_API_KEY,
+      nuxtPublicAuthDomain: process.env.NUXT_PUBLIC_AUTH_DOMAIN,
+      nuxtPublicProjectId: process.env.NUXT_PUBLIC_PROJECT_ID,
+      nuxtPublicStorageBucket: process.env.NUXT_PUBLIC_STORAGE_BUCKET,
+      nuxtPublicMessagingSenderId: process.env.NUXT_PUBLIC_MESSAGING_SENDER_ID,
+      nuxtPublicAppId: process.env.NUXT_PUBLIC_APP_ID,
+      nuxtPublicMeasurementId: process.env.NUXT_PUBLIC_MEASUREMENT_ID,
     }
   },
   ssr: true,
@@ -23,7 +20,7 @@ export default defineNuxtConfig({
     '@/assets/css/global.css'
   ],
   plugins: [
-    '~/plugins/firebase.js'
+    '~/plugins/firebase.client.js'
   ],
   hooks: {
     'pages:extend'(routes) {
@@ -54,6 +51,6 @@ export default defineNuxtConfig({
           file: resolve(__dirname, './src/pages/Login.vue'),
         },
       );
-    },
+    }
   }
 });

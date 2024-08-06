@@ -14,36 +14,46 @@
   </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup>
+import { ref } from 'vue';
+import { useNuxtApp } from '#app';
 
-export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      errorMessage: null
-    };
-  },
-  methods: {
-    async login() {
-      console.log("Função login chamada");
-      try {
-        const response = await axios.post('http://localhost:3000/login', {
-          email: this.email,
-          password: this.password
-        });
-        console.log("aquiii")
+const { $auth, $signInWithEmailAndPassword } = useNuxtApp();
 
-      } catch (error) {
-        console.log("Erro na requisição:", error);
-        if (error.response) {
-          this.errorMessage = error.response.data.error || 'Erro ao fazer login. Verifique suas credenciais.';
-        } else {
-          this.errorMessage = 'Erro de conexão. Tente novamente mais tarde.';
-        }
-      }
+const email = ref('');
+const password = ref('');
+const errorMessage = ref(null);
+
+const login = async () => {
+  try {
+    // Autentica o usuário com Firebase
+    const userCredential = await $signInWithEmailAndPassword($auth, email.value, password.value);
+    const user = userCredential.user;
+
+    // Obtém o token JWT
+    const token = await user.getIdToken();
+
+    // Envia o token JWT para o backend
+    const response = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email.value })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('Login bem-sucedido:', data);
+      // Redirecionar ou armazenar dados do usuário, se necessário
+    } else {
+      errorMessage.value = data.error || 'Erro ao fazer login.';
     }
+  } catch (error) {
+    console.error("Erro ao fazer login:", error);
+    errorMessage.value = 'Erro ao fazer login. Verifique suas credenciais.';
   }
 };
 </script>
