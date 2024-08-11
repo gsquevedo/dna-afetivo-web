@@ -14,9 +14,9 @@
 
       <ul :class="['navbar-links', { open: isMenuOpen }]">
         <li><nuxt-link to="/" exact active-class="active">Sobre</nuxt-link></li>
-        <li><nuxt-link to="/game" active-class="active">Jogo</nuxt-link></li>
+        <li><nuxt-link to="/products" active-class="active">Produtos</nuxt-link></li>
         <li><nuxt-link to="/actions" active-class="active">Ações</nuxt-link></li>
-        <li><nuxt-link to="/contact" active-class="active">Contato</nuxt-link></li>
+        <li><nuxt-link to="/publications" active-class="active">Publicações</nuxt-link></li>
         <li><nuxt-link to="/login" active-class="active">Login</nuxt-link></li>
       </ul>
     </nav>
