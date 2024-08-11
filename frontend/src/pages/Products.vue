@@ -7,6 +7,6 @@
 
 <script>
 export default {
-  name: 'GamePage'
+  name: 'ProductsPage'
 };
 </script>

@@ -31,9 +31,9 @@ export default defineNuxtConfig({
           file: resolve(__dirname, './src/pages/Index.vue'),
         },
         {
-          name: 'GamePage',
-          path: '/game',
-          file: resolve(__dirname, './src/pages/Game.vue'),
+          name: 'ProductsPage',
+          path: '/products',
+          file: resolve(__dirname, './src/pages/Products.vue'),
         },
         {
           name: 'ActionsPage',
@@ -41,9 +41,9 @@ export default defineNuxtConfig({
           file: resolve(__dirname, './src/pages/Actions.vue'),
         },
         {
-          name: 'ContactPage',
-          path: '/contact',
-          file: resolve(__dirname, './src/pages/Contact.vue'),
+          name: 'PublicationsPage',
+          path: '/publications',
+          file: resolve(__dirname, './src/pages/Publications.vue'),
         },
         {
           name: 'LoginPage',
