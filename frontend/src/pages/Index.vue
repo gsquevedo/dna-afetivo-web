@@ -32,6 +32,17 @@
           content="O projeto é uma contribuição significativa para a preservação e promoção das culturas indígenas, utilizando tecnologias modernas para apoiar a transmissão de saberes tradicionais e fomentar o respeito pela diversidade cultural."
         />
       </div>
+      <div class="team">
+        <h2>Integrantes do Projeto</h2>
+        <TeamMember 
+          v-for="member in teamMembers"
+          :key="member.name"
+          :name="member.name"
+          :role="member.role"
+          :description="member.description"
+          :photo="member.photo"
+        />
+      </div>
     </div>
     <Footer class="footer"/>
   </div>
@@ -41,12 +52,14 @@
 import logo from "../../assets/logo.png"
 import Card from "../components/Card.vue"
 import Footer from "../components/Footer.vue"
+import TeamMember from "../components/TeamMember.vue"
 
 export default {
   name: 'IndexPage',
   components: {
     Card,
-    Footer
+    Footer,
+    TeamMember
   },
   data() {
     return {
@@ -60,6 +73,10 @@ export default {
         { text: 'Criação de um banco de dados cultural acessível para pesquisadores e interessados.' },
         { text: 'Desenvolvimento de ferramentas interativas que permitam a exploração e o aprendizado sobre as culturas Kame e Kanhru.' },
         { text: 'Aumento da visibilidade e do respeito pelas tradições e identidades dos povos indígenas.' }
+      ],
+      teamMembers: [
+        { name: 'Kalinka Mallmann', role: 'Artista', description: 'Responsável pelo desenvolvimento artístico do projeto.', photo: 'path/to/photo1.jpg' },
+        { name: 'Joceli Sirai Sales', role: 'Professor de História', description: 'Contribui com o conhecimento histórico e cultural.', photo: 'path/to/photo2.jpg' },
       ]
     }
   }
@@ -95,6 +112,12 @@ export default {
   margin-top: 10px;
   width: 100%;
   max-width: 1200px; 
+}
+
+.team {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .footer {
