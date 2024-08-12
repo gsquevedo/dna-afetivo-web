@@ -6,10 +6,13 @@
     <div class="content">
       <h1>Projeto DNA Afetivo: Kame e Kanhru</h1>
       <p>
-        O projeto "DNA Afetivo: Kame e Kanhru" é uma iniciativa da Universidade Federal 
-        de Santa Maria (UFSM) desenvolvida pelo Laboratório de Interatividade e Acessibilidade
-        (LABINTER). O projeto tem como objetivo principal a preservação e valorização das 
-        práticas culturais e identidades das comunidades indígenas Kame e Kanhru.
+        O projeto "DNA Afetivo: Kame e Kanhru" é uma iniciativa da Universidade Federal de Santa Maria 
+        (UFSM), desenvolvida pela artista Kalinka Mallmann, pelo professor de História Joceli Sirai Sales 
+        e pelo Laboratório de Interatividade (LABINTER). O projeto ocorre de maneira colaborativa com a 
+        comunidade kaingáng da Terra do Indígena do Guarita km10, localizada no noroeste do estado do 
+        Rio Grande do Sul, e com a comunidade kaingáng de Santa Maria.
+        O objetivo principal do projeto é a preservação e valorização das práticas culturais e das 
+        identidades das comunidades indígenas Kame e Kanhru.
       </p>
       <div class="cards">
         <Card 

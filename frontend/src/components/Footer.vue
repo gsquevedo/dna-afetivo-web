@@ -22,7 +22,6 @@
             Santa Maria – RS<br />
             CEP: 97105-900<br />
             Email: <a :href="'mailto:' + emailLabinter">{{ emailLabinter }}</a><br />
-            <strong>Observação:</strong> O projeto também é desenvolvido aqui.
           </p>
         </div>
         <div class="contact-item">
