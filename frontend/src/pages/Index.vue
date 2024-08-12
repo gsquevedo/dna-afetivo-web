@@ -35,12 +35,15 @@
       <div class="team">
         <h2>Integrantes do Projeto</h2>
         <TeamMember 
-          v-for="member in teamMembers"
+          v-for="(member, index) in teamMembers"
           :key="member.name"
           :name="member.name"
           :role="member.role"
-          :description="member.description"
+          :education="member.education"
+          :experience="member.experience"
+          :contribution="member.contribution"
           :photo="member.photo"
+          :index="index"
         />
       </div>
     </div>
