@@ -15,19 +15,19 @@
         identidades das comunidades indígenas Kame e Kanhru.
       </p>
       <div class="cards">
-        <Card 
+        <Box 
           title="Objetivos:"
           :content="objectives"
         />
-        <Card 
+        <Box 
           title="Metodologia:"
           content="O projeto adota uma abordagem participativa, envolvendo membros das comunidades Kame e Kanhru no processo de coleta e compartilhamento de informações. Utiliza métodos de pesquisa colaborativa para garantir que as representações culturais sejam precisas e respeitosas."
         />
-        <Card 
+        <Box 
           title="Resultados Esperados:"
           :content="results"
         />
-        <Card 
+        <Box 
           title="Importância:"
           content="O projeto é uma contribuição significativa para a preservação e promoção das culturas indígenas, utilizando tecnologias modernas para apoiar a transmissão de saberes tradicionais e fomentar o respeito pela diversidade cultural."
         />
@@ -53,14 +53,15 @@
 
 <script>
 import logo from "../../assets/logo.png"
-import Card from "../components/Card.vue"
+import Box from "../components/Box.vue"
 import Footer from "../components/Footer.vue"
 import TeamMember from "../components/TeamMember.vue"
+import image from "../../assets/perfil.jpeg"
 
 export default {
   name: 'IndexPage',
   components: {
-    Card,
+    Box,
     Footer,
     TeamMember
   },
@@ -78,8 +79,8 @@ export default {
         { text: 'Aumento da visibilidade e do respeito pelas tradições e identidades dos povos indígenas.' }
       ],
       teamMembers: [
-        { name: 'Kalinka Mallmann', role: 'Artista', description: 'Responsável pelo desenvolvimento artístico do projeto.', photo: 'path/to/photo1.jpg' },
-        { name: 'Joceli Sirai Sales', role: 'Professor de História', description: 'Contribui com o conhecimento histórico e cultural.', photo: 'path/to/photo2.jpg' },
+        { name: 'Kalinka Mallmann', role: 'Artista', description: 'Responsável pelo desenvolvimento artístico do projeto.', photo: image },
+        { name: 'Joceli Sirai Sales', role: 'Professor de História', description: 'Contribui com o conhecimento histórico e cultural.', photo: image },
       ]
     }
   }

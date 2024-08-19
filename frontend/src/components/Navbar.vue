@@ -56,6 +56,9 @@ export default {
   background-color: #C4A968;
   width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Navbar fixa no topo */
+  top: 0; /* Alinha a navbar ao topo da página */
+  z-index: 1000; /* Garante que a navbar fique acima de outros conteúdos */
 }
 
 .navbar-content {
@@ -64,7 +67,6 @@ export default {
   justify-content: space-between;
   padding: 10px 30px;
   flex-wrap: wrap;
-  position: relative;
 }
 
 .navbar-logo img {
@@ -156,5 +158,4 @@ a:hover {
     right: 10px; 
   }
 }
-
 </style>

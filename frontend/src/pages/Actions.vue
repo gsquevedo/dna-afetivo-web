@@ -1,24 +1,33 @@
 <template>
   <div class="card-container">
     <Card
-      class="custom-card"
       v-for="item in items"
       :key="item.id"
       :image="item.image"
       :title="item.title"
       :description="item.description"
-      :onClick="() => handleCardClick(item.id)"
+      :onClick="() => handleCardClick(item)"
+    />
+    <!-- Modal -->
+    <Modal
+      v-if="isModalVisible"
+      :isVisible="isModalVisible"
+      :title="selectedItem?.title"
+      :content="selectedItem?.description"
+      @close="isModalVisible = false"
     />
   </div>
 </template>
 
 <script>
 import Card from '../components/Card.vue';
+import Modal from '../components/Modal.vue';
 
 export default {
   name: 'ActionPage',
   components: {
-    Card
+    Card,
+    Modal
   },
   data() {
     return {
@@ -29,13 +38,15 @@ export default {
         { id: 4, image: '/images/project4.jpg', title: 'Histórias Tupinambá', description: 'Aplicativo interativo para contar e preservar histórias tradicionais do povo Tupinambá.' },
         { id: 5, image: '/images/project5.jpg', title: 'Jogo Guarani', description: 'Jogo de realidade aumentada que explora mitos e lendas do povo Guarani.' },
         { id: 6, image: '/images/project6.jpg', title: 'Cultura Yanomami', description: 'Uma série de vídeos educacionais sobre a cultura, história e desafios enfrentados pelo povo Yanomami.' }
-      ]
+      ],
+      isModalVisible: false,
+      selectedItem: null
     };
   },
   methods: {
-    handleCardClick(id) {
-      // Lógica ao clicar no card
-      console.log('Card clicado com ID:', id);
+    handleCardClick(item) {
+      this.selectedItem = item;
+      this.isModalVisible = true;
     }
   }
 };

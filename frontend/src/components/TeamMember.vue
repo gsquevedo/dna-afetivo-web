@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     isRight() {
-      return this.index % 2 === 0; // Alterna entre 'right' e 'left'
+      return this.index % 2 === 0;
     }
   }
 };
@@ -37,35 +37,42 @@ export default {
 .team-member {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(221, 221, 221, 0.5); /* Borda com transparência */
   padding: 20px;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.3); /* Fundo branco com transparência */
   margin-bottom: 20px;
   transition: background-color 0.3s;
 }
 
 .team-member.right {
-  flex-direction: row; /* Imagem à direita e texto à esquerda */
+  flex-direction: row;
 }
 
 .team-member.left {
-  flex-direction: row-reverse; /* Imagem à esquerda e texto à direita */
+  flex-direction: row-reverse; 
 }
 
 .photo-container {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
 }
 
 .photo {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  margin: 0 20px;
 }
 
 .info {
   flex: 1;
+  margin-left: 10px;
+}
+
+.team-member.left .info {
+  margin-left: 0;
+  margin-right: 10px;
 }
 
 .info h3 {
@@ -77,6 +84,6 @@ export default {
 }
 
 .team-member:hover {
-  background-color: #f5f5f5;
+  background-color: rgba(245, 245, 245, 1); 
 }
 </style>
