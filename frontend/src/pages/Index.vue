@@ -6,13 +6,14 @@
     <div class="content">
       <h1>Projeto DNA Afetivo: Kame e Kanhru</h1>
       <p>
-        O projeto "DNA Afetivo: Kame e Kanhru" é uma iniciativa da Universidade Federal de Santa Maria 
-        (UFSM), desenvolvida pela artista Kalinka Mallmann, pelo professor de História Joceli Sirai Sales 
-        e pelo Laboratório de Interatividade (LABINTER). O projeto ocorre de maneira colaborativa com a 
-        comunidade kaingáng da Terra do Indígena do Guarita km10, localizada no noroeste do estado do 
-        Rio Grande do Sul, e com a comunidade kaingáng de Santa Maria.
-        O objetivo principal do projeto é a preservação e valorização das práticas culturais e das 
-        identidades das comunidades indígenas Kame e Kanhru.
+        O projeto "DNA Afetivo: Kamê e Kanhru" é uma iniciativa da Universidade Federal de Santa Maria 
+        (UFSM), idealizada (em 2016) pela artista Kalinka Mallmann e pelo professor de História, 
+        indígena Kaingáng, Joceli Sirai Sales. Desenvolvida pelo Laboratório de Interatividade (LABINTER) 
+        com a comunidades Kaingáng  Terra do Indígena do Guarita km10, localizada no noroeste do estado 
+        do Rio Grande do Sul, e com a comunidade Kaingáng de Santa Maria, Três Soitas. O objetivo 
+        principal do projeto é a preservação e valorização das práticas culturais Kaingáng 
+        em meio às tecnologias emergentes. Além de fomentar o protagonismo das comunidades 
+        participantes.
       </p>
       <div class="cards">
         <Box 
@@ -21,7 +22,7 @@
         />
         <Box 
           title="Metodologia:"
-          content="O projeto adota uma abordagem participativa, envolvendo membros das comunidades Kame e Kanhru no processo de coleta e compartilhamento de informações. Utiliza métodos de pesquisa colaborativa para garantir que as representações culturais sejam precisas e respeitosas."
+          content="O projeto é realizado por meio de uma metodologia colaborativa em arte, que integra práticas artísticas e pedagógicas no interior das comunidades participantes."
         />
         <Box 
           title="Resultados Esperados:"
@@ -69,14 +70,16 @@ export default {
     return {
       logo,
       objectives: [
-        { label: 'Preservação Cultural: ', text: 'O projeto visa documentar e preservar as práticas culturais, histórias e tradições dos povos Kame e Kanhru, promovendo a valorização de suas identidades e saberes.' },
-        { label: 'Tecnologia e Cultura: ', text: 'Utiliza tecnologias digitais e de interação para criar ferramentas e plataformas que facilitem a disseminação e o acesso às informações culturais dessas comunidades.' },
-        { label: 'Educação e Conscientização: ', text: 'Promove a educação e a conscientização sobre a importância da diversidade cultural e o respeito pelas tradições indígenas.' }
+        { label: 'Preservação Cultural: ', text: 'O projeto visa documentar e preservar as práticas culturais, histórias e tradições do povo Kaingáng, promovendo a valorização de suas identidades e saberes.' },
+        { label: 'Tecnologia e Cultura: ', text: 'Utiliza tecnologias digitais e de interação para criar ferramentas e plataformas que dialoguem com a demanda local das comunidades participantes.' },
+        { label: 'Educação e Conscientização: ', text: 'Promove a educação tecnológica  e a conscientização sobre a importância da diversidade cultural e o respeito pelas tradições indígenas.' }
       ],
       results: [
-        { text: 'Criação de um banco de dados cultural acessível para pesquisadores e interessados.' },
-        { text: 'Desenvolvimento de ferramentas interativas que permitam a exploração e o aprendizado sobre as culturas Kame e Kanhru.' },
-        { text: 'Aumento da visibilidade e do respeito pelas tradições e identidades dos povos indígenas.' }
+        { text: 'Desenvolvimento de ferramentas interativas que permitam o aprendizado sobre a cultura Kaingáng.' },
+        { text: 'Ativação do idioma Kaingáng e da concepção cosmológica Kamê e Kanhru por meio das tecnologias emergentes em arte.' },
+        { text: 'Gerar protagonismo das comunidades indígenas e capacitação tecnológica.' },
+        { text: 'Aumento da visibilidade e do respeito pelas tradições e identidades dos povos indígenas. em geral.' },
+        { text: 'Criação de um banco de dados cultural acessível para pesquisadores e interessados.' }
       ],
       teamMembers: [
         { name: 'Kalinka Mallmann', role: 'Artista', description: 'Responsável pelo desenvolvimento artístico do projeto.', photo: image },

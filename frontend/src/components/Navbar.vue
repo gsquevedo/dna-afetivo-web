@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo_icone.png";
 import { Menu as MenuIcon, Close as CloseIcon } from '@vicons/ionicons5';
 import { NIcon } from "naive-ui";
 

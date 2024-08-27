@@ -27,7 +27,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 110px;
+  padding-top: 50px;
 }
 
 </style>
