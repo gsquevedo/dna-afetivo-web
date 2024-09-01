@@ -48,14 +48,12 @@
         />
       </div>
     </div>
-    <Footer class="footer"/>
   </div>
 </template>
 
 <script>
 import logo from "../../assets/logo.png"
 import Box from "../components/Box.vue"
-import Footer from "../components/Footer.vue"
 import TeamMember from "../components/TeamMember.vue"
 import image from "../../assets/perfil.jpeg"
 
@@ -63,7 +61,6 @@ export default {
   name: 'IndexPage',
   components: {
     Box,
-    Footer,
     TeamMember
   },
   data() {
@@ -95,6 +92,10 @@ export default {
   width: auto;
   height: auto;
   background-color: #F5F5DC;
+  background-image: url('../../assets/personagens/menino kame.png'), url('../../assets/personagens/professor Joceli - transparente.png');
+  background-position: left bottom, right bottom;
+  background-repeat: no-repeat;
+  background-size: 20% 20%; 
 }
 
 .logo {
@@ -125,9 +126,5 @@ export default {
   margin-top: 40px;
   width: 100%;
   max-width: 1200px;
-}
-
-.footer {
-  margin-top: 10px;
 }
 </style>

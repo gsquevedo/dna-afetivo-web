@@ -3,15 +3,18 @@
     <!-- Verifica se a rota não é '/login' antes de renderizar a Navbar -->
     <Navbar v-if="!isLoginPage"/>
     <NuxtPage />
+    <Footer v-if="!isLoginPage"/>
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue"
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    Footer,
   },
   computed: {
     isLoginPage() {
@@ -29,5 +32,4 @@ export default {
   height: 100vh;
   padding-top: 50px;
 }
-
 </style>
