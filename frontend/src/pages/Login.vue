@@ -16,9 +16,10 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useNuxtApp } from '#app';
+import { useNuxtApp, useRouter } from '#app';
 
 const { $auth, $signInWithEmailAndPassword } = useNuxtApp();
+const router = useRouter();
 
 const email = ref('');
 const password = ref('');
@@ -48,6 +49,7 @@ const login = async () => {
     if (response.ok) {
       console.log('Login bem-sucedido:', data);
       // Redirecionar ou armazenar dados do usuário, se necessário
+      router.push('/')
     } else {
       errorMessage.value = data.error || 'Erro ao fazer login.';
     }
