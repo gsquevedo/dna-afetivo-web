@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
-import Footer from "../components/Footer.vue"
+import Navbar from "../../components/Navbar.vue";
+import Footer from "../../components/Footer.vue"
 
 export default {
   components: {
@@ -19,7 +19,7 @@ export default {
   computed: {
     isLoginPage() {
       // Verifica a rota atual
-      return this.$route.path === '/login';
+      return this.$route.path === '/admin/login';
     }
   }
 };

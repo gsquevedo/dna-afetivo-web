@@ -49,7 +49,7 @@ const login = async () => {
     if (response.ok) {
       console.log('Login bem-sucedido:', data);
       // Redirecionar ou armazenar dados do usuário, se necessário
-      router.push('/')
+      router.push('/admin/')
     } else {
       errorMessage.value = data.error || 'Erro ao fazer login.';
     }

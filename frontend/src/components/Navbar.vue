@@ -17,7 +17,7 @@
         <li><nuxt-link to="/products" active-class="active">Produtos</nuxt-link></li>
         <li><nuxt-link to="/actions" active-class="active">Ações</nuxt-link></li>
         <li><nuxt-link to="/publications" active-class="active">Publicações</nuxt-link></li>
-        <li><nuxt-link to="/login" active-class="active">Login</nuxt-link></li>
+        <li><nuxt-link to="/admin/login" active-class="active">Login</nuxt-link></li>
       </ul>
     </nav>
   </div>
@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     toggleMenu() {
-      console.log('Toggle menu clicked');
       this.isMenuOpen = !this.isMenuOpen;
     }
   },

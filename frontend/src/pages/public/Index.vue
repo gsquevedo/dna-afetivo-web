@@ -53,8 +53,8 @@
 
 <script>
 import logo from "../../assets/logo.png"
-import Box from "../components/Box.vue"
-import TeamMember from "../components/TeamMember.vue"
+import Box from "../../components/Box.vue"
+import TeamMember from "../../components/TeamMember.vue"
 import image from "../../assets/perfil.jpeg"
 
 export default {
@@ -92,10 +92,7 @@ export default {
   width: auto;
   height: auto;
   background-color: #F5F5DC;
-  background-image: url('../../assets/personagens/menino kame.png'), url('../../assets/personagens/professor Joceli - transparente.png');
-  background-position: left bottom, right bottom;
-  background-repeat: no-repeat;
-  background-size: 20% 20%; 
+  
 }
 
 .logo {
@@ -124,7 +121,11 @@ export default {
 
 .team {
   margin-top: 40px;
-  width: 60%;
+  width: 100%;
   max-width: 1200px;
+  background-image: url('../../assets/personagens/professor Joceli - transparente.png');
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-size: 25% 100%; 
 }
 </style>

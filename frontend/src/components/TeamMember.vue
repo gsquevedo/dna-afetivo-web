@@ -37,12 +37,13 @@ export default {
 .team-member {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(221, 221, 221, 0.5); /* Borda com transparência */
+  border: 1px solid rgba(221, 221, 221, 0.5); 
   padding: 20px;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3); /* Fundo branco com transparência */
+  background-color: rgba(255, 255, 255, 0.5); 
   margin-bottom: 20px;
   transition: background-color 0.3s;
+  width: 75%;
 }
 
 .team-member.right {
@@ -83,7 +84,4 @@ export default {
   margin: 5px 0;
 }
 
-.team-member:hover {
-  background-color: rgba(245, 245, 245, 1); 
-}
 </style>
