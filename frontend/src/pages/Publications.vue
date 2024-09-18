@@ -10,3 +10,13 @@ export default {
   name: 'PublicationsPage'
 };
 </script>
+
+<style scoped>
+div {
+  height: 100vh;
+}
+
+h1 {
+  margin-top: 150px;
+}
+</style>
