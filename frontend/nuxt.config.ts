@@ -15,6 +15,7 @@ export default defineNuxtConfig({
       nuxtPublicMeasurementId: process.env.NUXT_PUBLIC_MEASUREMENT_ID,
     }
   },
+
   ssr: true,
   css: [
     '@/assets/css/global.css'
@@ -57,5 +58,6 @@ export default defineNuxtConfig({
         },
       );
     }
-  }
+  },
+  compatibilityDate: '2024-09-21'
 });

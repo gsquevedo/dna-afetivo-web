@@ -55,7 +55,12 @@
 import logo from "../../assets/logo.png"
 import Box from "../../components/Box.vue"
 import TeamMember from "../../components/TeamMember.vue"
-import image from "../../assets/perfil.jpeg"
+import image from "../../assets/gsquevedo.jpg"
+import joceli from "../../assets/Joceli-Sales.jpg"
+import kalinka from "../../assets/Kalinka-Mallmann.jpg"
+import jordan from "../../assets/Jordan-Rodrigues-Lauz.jpg"
+import anita from "../../assets/anita.jpg"
+import geneci from '../../assets/Geneci-Fidelis-Andre.jpg'
 
 export default {
   name: 'IndexPage',
@@ -79,12 +84,13 @@ export default {
         { text: 'Criação de um banco de dados cultural acessível para pesquisadores e interessados.' }
       ],
       teamMembers: [
-        { name: 'Kalinka Mallmann', role: 'Artista', description: 'Responsável pelo desenvolvimento artístico do projeto.', photo: image },
-        { name: 'Joceli Sirai Sales', role: 'Professor de História', description: 'Contribui com o conhecimento histórico e cultural.', photo: image },
+        { name: 'Kalinka Mallmann', role: 'Artista', description: 'Responsável pelo desenvolvimento artístico do projeto.', photo: kalinka },
+        { name: 'Joceli Sirai Sales', role: 'Professor de História', description: 'Contribui com o conhecimento histórico e cultural.', photo: joceli },
         { name: 'Jefferson Silva', role: 'Filmmaker e Fotógrafo', education: 'Graduando em Artes Visuais - Bacharelado', experience: 'Audiovisual', photo: image },
-        { name: 'Anita Rizzatti', role: 'Fotógrafa', education: 'Graduanda em Artes Visuais - Licenciatura', experience: 'Audiovisual', photo: image },
-        { name: 'Jordan Rodrigues Lauz', role: 'Ilustrador', education: 'Graduando em Artes Visuais - Bacharelado', experience: 'Ilustração', photo: image },
+        { name: 'Anita Rizzatti', role: 'Fotógrafa', education: 'Graduanda em Artes Visuais - Licenciatura', experience: 'Audiovisual', photo: anita },
+        { name: 'Jordan Rodrigues Lauz', role: 'Ilustrador', education: 'Graduando em Artes Visuais - Bacharelado', experience: 'Ilustração', photo: jordan },
         { name: 'Gabriele Soares Quevedo', role: 'Desenvolvedora de Software', description: 'Desenvolvedora da plataforma web', education: 'Graduanda em Ciência da Computação', experience: 'Desenvolvimento de Software', photo: image },
+        { name: 'Genecí Fidélis André', role: '', description: '', photo: geneci }
       ]
     }
   }
@@ -126,9 +132,11 @@ export default {
   margin-top: 40px;
   width: 100%;
   max-width: 1200px;
-  /* background-image: url('../../../assets/personagens/professor Joceli - transparente.png'); */
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  background-size: 25% 100%; 
+  background-image: url('../../../assets/personagens/professor Joceli - transparente.png'),
+                    url('../../../assets/personagens/Ilustração Ancião - transparente.png');
+  background-position: 950px 850px, 950px 150px;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 300px 400px, 300px 400px;
+  background-attachment: scroll, scroll; 
 }
 </style>

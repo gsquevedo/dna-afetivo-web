@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>Contato</h1>
-    <p>Bem-vindo à página de contato.</p>
+  <div class="page">
+    <h1>Publicações</h1>
+    <p>Bem-vindo à página de publicações.</p>
   </div>
 </template>
 
@@ -12,11 +12,15 @@ export default {
 </script>
 
 <style scoped>
-div {
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   height: 100vh;
-}
-
-h1 {
-  margin-top: 150px;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
 }
 </style>
