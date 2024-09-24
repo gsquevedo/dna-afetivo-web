@@ -89,7 +89,7 @@ export default {
         { name: 'Joceli Sirai Sales', role: 'Assessoria na parte da cultura Kaingang', education: 'Licenciado e bacharel em História', contribution: 'Assessoria na parte da cultura Kaingang', photo: joceli },
         { name: 'Andreia Oliveira', role: 'Artista Pesquisadora', education: 'Pós-doutorado em Media Art', contribution: 'Concepção e coordenadora do projeto', photo: andreia},
         { name: 'Genecí Fidélis André', role: 'Colaboradora do projeto', education: 'Licenciada em Artes Visuais', contribution: '', photo: geneci },
-        { name: 'Jefferson Silva', role: 'Filmmaker e Fotógrafo', education: 'Graduando em Artes Visuais - Bacharelado', contribution: 'Audiovisual', photo: jeff },
+        { name: 'Jefferson Silva', role: 'Filmmaker e Fotógrafo', education: 'Graduando em Artes Visuais - Bacharelado', contribution: 'Projeto audiovisual com a temática kaigang pra fulldome', photo: jeff },
         { name: 'Anita Rizzatti', role: 'Fotógrafa', education: 'Graduanda em Artes Visuais - Licenciatura', contribution: 'Audiovisual', photo: anita },
         { name: 'Jordan Rodrigues Lauz', role: 'Ilustrador', education: 'Graduando em Artes Visuais - Bacharelado', experience: 'Ilustração', photo: jordan },
         { name: 'Gabriele Soares Quevedo', role: 'Desenvolvedora de Software', education: 'Graduanda em Ciência da Computação - Bacharelado', contribution: 'Desenvolvimento da plataforma web', photo: image },

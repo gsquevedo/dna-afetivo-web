@@ -19,7 +19,6 @@ export default {
     name: String,
     role: String,
     education: String,
-    experience: String,
     contribution: String,
     photo: String,
     index: Number
@@ -36,13 +35,16 @@ export default {
 .team-member {
   display: flex;
   align-items: center;
+  justify-content: center; /* Centraliza horizontalmente */
   border: 1px solid rgba(221, 221, 221, 0.5); 
   padding: 20px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5); 
   margin-bottom: 20px;
   transition: background-color 0.3s;
-  width: 75%;
+  width: 100%; /* Ocupa toda a largura disponível */
+  max-width: 900px; /* Limita o tamanho máximo */
+  margin: 0 auto; /* Centraliza o componente */
 }
 
 .team-member.right {
@@ -57,30 +59,33 @@ export default {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center; /* Centraliza a imagem no container */
 }
 
 .photo {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+  object-fit: cover; /* Garante que a imagem cubra o espaço corretamente */
 }
 
 .info {
   flex: 1;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .team-member.left .info {
   margin-left: 0;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .info h3 {
   margin-top: 0;
+  text-align: center; /* Centraliza o texto */
 }
 
 .info p {
   margin: 5px 0;
+  text-align: center; /* Centraliza os parágrafos */
 }
-
 </style>
