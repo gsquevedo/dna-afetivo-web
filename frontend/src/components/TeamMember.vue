@@ -7,7 +7,6 @@
       <h3>{{ name }}</h3>
       <p><strong>Cargo:</strong> {{ role }}</p>
       <p><strong>Formação Acadêmica:</strong> {{ education }}</p>
-      <p><strong>Experiência Profissional:</strong> {{ experience }}</p>
       <p><strong>Principal Contribuição:</strong> {{ contribution }}</p>
     </div>
   </div>
