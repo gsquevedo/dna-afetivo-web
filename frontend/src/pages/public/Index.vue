@@ -61,6 +61,7 @@ import jordan from "../../assets/Jordan-Rodrigues-Lauz.jpg"
 import anita from "../../assets/anita.jpg"
 import geneci from '../../assets/Geneci-Fidelis-Andre.jpg'
 import jeff from "../../assets/jeff.jpg"
+import andreia from '../../assets/andreia.jpeg'
 
 export default {
   name: 'IndexPage',
@@ -86,11 +87,12 @@ export default {
       teamMembers: [
         { name: 'Kalinka Mallmann', role: 'Artista Pesquisadora', education: 'Doutorado em Arte e Tecnologia.', contribution: 'Autora e coordenadora do projeto', photo: kalinka },
         { name: 'Joceli Sirai Sales', role: 'Assessoria na parte da cultura Kaingang', education: 'Licenciado e bacharel em História', contribution: 'Assessoria na parte da cultura Kaingang', photo: joceli },
-        { name: 'Genecí Fidélis André', role: 'Coordenadora do projeto', education: 'Licenciada em Artes Visuais', contribution: '', photo: geneci },
+        { name: 'Andreia Oliveira', role: 'Artista Pesquisadora', education: 'Pós-doutorado em Media Art', contribution: 'Concepção e coordenadora do projeto', photo: andreia},
+        { name: 'Genecí Fidélis André', role: 'Colaboradora do projeto', education: 'Licenciada em Artes Visuais', contribution: '', photo: geneci },
         { name: 'Jefferson Silva', role: 'Filmmaker e Fotógrafo', education: 'Graduando em Artes Visuais - Bacharelado', contribution: 'Audiovisual', photo: jeff },
         { name: 'Anita Rizzatti', role: 'Fotógrafa', education: 'Graduanda em Artes Visuais - Licenciatura', contribution: 'Audiovisual', photo: anita },
         { name: 'Jordan Rodrigues Lauz', role: 'Ilustrador', education: 'Graduando em Artes Visuais - Bacharelado', experience: 'Ilustração', photo: jordan },
-        { name: 'Gabriele Soares Quevedo', role: 'Desenvolvedora de Software', education: 'Acadêmica de Ciência da Computação', experience: 'Desenvolvimento de Software', photo: image },
+        { name: 'Gabriele Soares Quevedo', role: 'Desenvolvedora de Software', education: 'Graduanda em Ciência da Computação - Bacharelado', contribution: 'Desenvolvimento da plataforma web', photo: image },
       ]
     }
   }

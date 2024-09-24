@@ -78,10 +78,11 @@ export default {
   padding: 20px 10px;
   border-top: 1px solid #c4a968;
   font-family: 'Arial', sans-serif;
-  background-image: url('../../../frontend/assets/personagens/menina kame.png');
+  background-image: url('../../../frontend/assets/personagens/menina kame.png'),
+                    url('../../../frontend/assets/personagens/menina kahnru.png');
   background-size: 10% 50%;
   background-repeat: no-repeat;
-  background-position: right bottom; 
+  background-position: right bottom, left bottom; 
 }
 
 .container {
