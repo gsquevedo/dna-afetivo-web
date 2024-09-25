@@ -34,8 +34,6 @@ export default {
 <style scoped>
 .team-member {
   display: flex;
-  /* align-items: center;
-  justify-content: center;  */
   border: 1px solid rgba(221, 221, 221, 0.5); 
   padding: 20px;
   border-radius: 5px;
@@ -43,7 +41,7 @@ export default {
   margin-bottom: 20px;
   transition: background-color 0.3s;
   width: 100%;
-  margin: 0 auto; 
+  margin-bottom: 15px;  
 }
 
 .team-member.right {

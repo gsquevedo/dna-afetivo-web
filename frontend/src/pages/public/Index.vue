@@ -33,19 +33,19 @@
           content="O projeto é uma contribuição significativa para a preservação e promoção das culturas indígenas, utilizando tecnologias modernas para apoiar a transmissão de saberes tradicionais e fomentar o respeito pela diversidade cultural."
         />
       </div>
-    </div> 
-    <div class="team">
-      <h2>Integrantes do Projeto</h2>
-      <TeamMember 
-        v-for="(member, index) in teamMembers"
-        :key="member.name"
-        :name="member.name"
-        :role="member.role"
-        :education="member.education"
-        :contribution="member.contribution"
-        :photo="member.photo"
-        :index="index"
-      />
+      <div class="team">
+        <h2>Integrantes do Projeto</h2>
+        <TeamMember 
+          v-for="(member, index) in teamMembers"
+          :key="member.name"
+          :name="member.name"
+          :role="member.role"
+          :education="member.education"
+          :contribution="member.contribution"
+          :photo="member.photo"
+          :index="index"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -130,27 +130,32 @@ export default {
   max-width: 1200px; 
 }
 
-/* .team {
-  margin-top: 40px;
-  width: 100%;
-  max-width: 1200px;
-  background-image: url('../../../assets/personagens/professor Joceli - transparente.png'),
-                    url('../../../assets/personagens/Ilustração Ancião - transparente.png');
-  background-position: 950px 850px, 0px 150px;
-  background-repeat: no-repeat, no-repeat;
-  background-size: 300px 400px, 300px 400px;
-  background-attachment: scroll, scroll; 
-} */
-
 .team {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   margin-top: 40px;
-  margin-left: 40px;
   width: 100%;
   max-width: 1200px;
 }
 
+@media (min-width: 1600px) {
+  .logo img {
+    width: 30%;
+    height: auto;
+  }
 
+  .cards {
+    max-width: 1300px; 
+  }
+
+  .content {
+    background-image: 
+      url('../../../assets/personagens/professor Joceli - transparente.png'),
+      url('../../../assets/personagens/Ilustração Ancião - transparente.png'),
+      url('../../../assets/personagens/Ilustração pescador - transparente.png'),
+      url('../../../assets/personagens/Ilustração artesana - TRANSPARENTE 2.png');
+    background-position: 1500px 950px, 0px 150px, 0px 1500px, 1500px 2000px;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 300px 400px, 300px 400px;
+    background-attachment: scroll, scroll; 
+  }
+}
 </style>
