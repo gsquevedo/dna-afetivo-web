@@ -34,39 +34,40 @@ export default {
 <style scoped>
 .team-member {
   display: flex;
-  align-items: center;
-  justify-content: center; /* Centraliza horizontalmente */
+  /* align-items: center;
+  justify-content: center;  */
   border: 1px solid rgba(221, 221, 221, 0.5); 
   padding: 20px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5); 
   margin-bottom: 20px;
   transition: background-color 0.3s;
-  width: 100%; /* Ocupa toda a largura disponível */
-  max-width: 900px; /* Limita o tamanho máximo */
-  margin: 0 auto; /* Centraliza o componente */
+  width: 100%;
+  margin: 0 auto; 
 }
 
 .team-member.right {
   flex-direction: row;
+  justify-content: flex-start;
 }
 
 .team-member.left {
   flex-direction: row-reverse; 
+  justify-content: flex-end;
 }
 
 .photo-container {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center; /* Centraliza a imagem no container */
+  justify-content: center;
 }
 
 .photo {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  object-fit: cover; /* Garante que a imagem cubra o espaço corretamente */
+  object-fit: cover;
 }
 
 .info {
@@ -81,11 +82,9 @@ export default {
 
 .info h3 {
   margin-top: 0;
-  text-align: center; /* Centraliza o texto */
 }
 
 .info p {
   margin: 5px 0;
-  text-align: center; /* Centraliza os parágrafos */
 }
 </style>
