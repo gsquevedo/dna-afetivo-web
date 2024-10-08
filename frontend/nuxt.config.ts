@@ -3,7 +3,7 @@ import { resolve } from 'path';
 export default defineNuxtConfig({
   devtools: { enabled: true },
   components: true,
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', 'nuxtjs-naive-ui'],
   runtimeConfig: {
     public: {
       nuxtPublicApiKey: process.env.NUXT_PUBLIC_API_KEY,
@@ -15,13 +15,13 @@ export default defineNuxtConfig({
       nuxtPublicMeasurementId: process.env.NUXT_PUBLIC_MEASUREMENT_ID,
     }
   },
-
   ssr: true,
   css: [
     '@/assets/css/global.css'
   ],
   plugins: [
-    '~/plugins/firebase.client.js'
+    '~/plugins/firebase.client.js',
+    '~/plugins/naive-ui.js',
   ],
   hooks: {
     'pages:extend'(routes) {
