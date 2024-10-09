@@ -53,19 +53,11 @@
         </template>
       </div>
     </n-config-provider>
-
-    <!-- <div class="preview-section" v-if="savedContent">
-      <h2>Pré-visualização</h2>
-      <h3>{{ savedContent.title }}</h3>
-      <p>{{ savedContent.content }}</p>
-      <img v-if="savedContent.imageUrl" :src="savedContent.imageUrl" alt="Imagem carregada" />
-    </div> -->
   </div>
 </template>
 
 <script>
-import { NUpload, NButton, NSpace, 
-  NInput, NForm, NFormItem, NConfigProvider } from 'naive-ui';
+import { NUpload, NButton, NSpace, NInput, NForm, NFormItem, NConfigProvider } from 'naive-ui';
 
 export default {
   name: 'IndexAdmin',

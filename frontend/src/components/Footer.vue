@@ -94,7 +94,6 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  flex-wrap: nowrap;
 }
 
 .contact-item {
@@ -107,7 +106,7 @@ export default {
 
 .contact-item h3 {
   margin-top: 0;
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: #7A5C41;
   margin-bottom: 15px;
 }
@@ -116,6 +115,11 @@ export default {
   margin: 5px 0;
   color: #FFF;
   font-size: 1.1em;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .email-link:hover {
@@ -148,13 +152,40 @@ export default {
   color: #FFF;
 }
 
-.social-icon {
-  width: 24px; 
-  height: 24px;
-}
-
 .footer-bottom {
   color: #FFF;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .footer {
+    background-size: 20% 40%;
+  }
+
+  .contact-info {
+    display: grid;
+    grid-template-columns: repeat(2, 0.3fr); 
+    gap: 5px; 
+  }
+  
+  .contact-item {
+    padding: 10px;
+  }
+
+  .contact-item h3 {
+    font-size: 1.0em;
+    margin-bottom: 10px;
+  }
+
+  .contact-item p {
+    margin: 2px 0;
+    font-size: 0.9em;
+  }
+
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 </style>

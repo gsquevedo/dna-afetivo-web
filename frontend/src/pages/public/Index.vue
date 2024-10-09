@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="logo">
-      <img :src="logo" width="30%" height="30%"/>
+      <img :src="logo" width="50%" height="50%"/>
     </div>
     <div class="content">
       <h1>Projeto DNA Afetivo: Kame e Kanhru</h1>
@@ -136,26 +136,4 @@ export default {
   max-width: 1200px;
 }
 
-@media (min-width: 1600px) {
-  .logo img {
-    width: 30%;
-    height: auto;
-  }
-
-  .cards {
-    max-width: 1300px; 
-  }
-
-  .content {
-    background-image: 
-      url('../../../assets/personagens/professor Joceli - transparente.png'),
-      url('../../../assets/personagens/Ilustração Ancião - transparente.png'),
-      url('../../../assets/personagens/Ilustração pescador - transparente.png'),
-      url('../../../assets/personagens/Ilustração artesana - TRANSPARENTE 2.png');
-    background-position: 1500px 950px, 0px 150px, 0px 1500px, 1500px 2000px;
-    background-repeat: no-repeat, no-repeat;
-    background-size: 300px 400px, 300px 400px;
-    background-attachment: scroll, scroll; 
-  }
-}
 </style>

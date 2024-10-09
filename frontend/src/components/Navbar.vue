@@ -53,11 +53,7 @@ export default {
   margin: 0;
   padding: 0;
   background-color: #C4A968;
-  width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Navbar fixa no topo */
-  top: 0; /* Alinha a navbar ao topo da página */
-  z-index: 1000; /* Garante que a navbar fique acima de outros conteúdos */
 }
 
 .navbar-content {
@@ -105,13 +101,6 @@ a:hover {
 
 .menu-toggle {
   display: none;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
 }
 
 .menu-toggle n-icon {
@@ -122,12 +111,6 @@ a:hover {
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .navbar-content {
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-  }
-
   .navbar-links {
     flex-direction: column;
     width: 100%;
@@ -152,9 +135,8 @@ a:hover {
   }
 
   .menu-toggle {
-    display: flex; 
-    top: 30px; 
-    right: 10px; 
+    display: flex;
   }
 }
+
 </style>

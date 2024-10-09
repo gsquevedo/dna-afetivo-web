@@ -85,4 +85,38 @@ export default {
 .info p {
   margin: 5px 0;
 }
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .team-member {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .team-member.right,
+  .team-member.left {
+    flex-direction: column;
+  }
+
+  .photo-container {
+    margin-bottom: 15px;
+  }
+
+  .info {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .info h3 {
+    font-size: 1.2em;
+  }
+
+  .photo {
+    width: 120px; 
+    height: 120px;
+  }
+}
+
 </style>
