@@ -10,14 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.5.1",
+    "@pinia/nuxt": "^0.5.5",
     "axios": "^1.7.3",
     "firebase": "^10.12.5",
     "leaflet": "^1.9.4",
     "naive-ui": "^2.40.1",
     "nuxt": "^3.13.2",
     "nuxtjs-naive-ui": "^1.0.2",
-    "pinia": "^2.1.7",
+    "pinia": "^2.2.4",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },

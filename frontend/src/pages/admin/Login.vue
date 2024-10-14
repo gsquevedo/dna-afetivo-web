@@ -17,9 +17,11 @@
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
+import { useAuthStore } from '../../store/auth';
 
 const { $auth, $signInWithEmailAndPassword } = useNuxtApp();
 const router = useRouter();
+const authStore = useAuthStore();
 
 const email = ref('');
 const password = ref('');
@@ -48,6 +50,7 @@ const login = async () => {
 
     if (response.ok) {
       console.log('Login bem-sucedido:', data);
+      authStore.login();
       // Redirecionar ou armazenar dados do usuário, se necessário
       router.push('/admin/')
     } else {

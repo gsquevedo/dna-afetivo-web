@@ -17,7 +17,8 @@
         <li><nuxt-link to="/products" active-class="active">Produtos</nuxt-link></li>
         <li><nuxt-link to="/actions" active-class="active">Ações</nuxt-link></li>
         <li><nuxt-link to="/publications" active-class="active">Publicações</nuxt-link></li>
-        <li><nuxt-link to="/admin/login" active-class="active">Login</nuxt-link></li>
+        <li v-if="!isAdmin"><nuxt-link to="/admin/login" active-class="active">Login</nuxt-link></li>
+        <li v-if="isAdmin" @click="logout"><nuxt-link to="/" active-class="active">Sair</nuxt-link></li>
       </ul>
     </nav>
   </div>
@@ -27,24 +28,36 @@
 import logo from "../../assets/logo_icone.png";
 import { Menu as MenuIcon, Close as CloseIcon } from '@vicons/ionicons5';
 import { NIcon } from "naive-ui";
+import { useAuthStore } from '../store/auth';
 
 export default {
   data() {
     return {
       logo,
-      isMenuOpen: false
+      isMenuOpen: false,
     };
+  },
+  computed: {
+    isAdmin() {
+      const authStore = useAuthStore();
+      return authStore.isAdmin;
+    },
   },
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
-    }
+    },
+    logout() {
+      const authStore = useAuthStore();
+      console.log(authStore)
+      authStore.logout();
+    },
   },
   components: {
     MenuIcon,
     CloseIcon,
-    NIcon
-  }
+    NIcon,
+  },
 };
 </script>
 
