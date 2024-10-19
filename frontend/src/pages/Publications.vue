@@ -1,64 +1,87 @@
 <template>
   <div class="publications-container">
-    <h1>Lista de Publicações</h1>
+    <h1 class="title">Publicações do Projeto</h1>
 
     <!-- Artigos Publicados em Periódicos -->
     <section>
       <h2>Artigos Publicados em Periódicos Nacionais e Internacionais</h2>
-      <div v-for="publication in articles" :key="publication.id" class="publication-item">
-        <h3>{{ publication.title }}</h3>
-        <p><strong>Autores:</strong> {{ publication.authors }}</p>
-        <p><strong>Periódico:</strong> {{ publication.journal }} ({{ publication.year }})</p>
-        <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+      <div v-for="(publication, index) in articles" :key="publication.id" 
+           :class="['publication-item', { 'bg-image': true }]"
+           :style="{ backgroundImage: showImage(index) }">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Periódico:</strong> {{ publication.journal }} ({{ publication.year }})</p>
+          <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+        </div>
       </div>
     </section>
 
     <!-- Capítulos de Livros Nacionais e Internacionais -->
     <section>
       <h2>Capítulos de Livros Nacionais e Internacionais</h2>
-      <div v-for="publication in bookChapters" :key="publication.id" class="publication-item">
-        <h3>{{ publication.title }}</h3>
-        <p><strong>Autores:</strong> {{ publication.authors }}</p>
-        <p><strong>Livro:</strong> {{ publication.book }} ({{ publication.year }})</p>
-        <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+      <div v-for="(publication, index) in bookChapters" :key="publication.id" 
+           :class="['publication-item', { 'bg-image': true }]"
+           :style="{ backgroundImage: showImage(index) }">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Livro:</strong> {{ publication.book }} ({{ publication.year }})</p>
+          <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+        </div>
       </div>
     </section>
 
     <!-- Dissertação de Mestrado -->
     <section>
       <h2>Dissertação de Mestrado</h2>
-      <div v-for="publication in dissertation" :key="publication.id" class="publication-item">
-        <h3>{{ publication.title }}</h3>
-        <p><strong>Autores:</strong> {{ publication.authors }}</p>
-        <p><strong>Instituição:</strong> {{ publication.institution }} ({{ publication.year }})</p>
-        <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+      <div v-for="(publication, index) in dissertation" :key="publication.id" 
+           :class="['publication-item', { 'bg-image': true }]"
+           :style="{ backgroundImage: showImage(index) }">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Instituição:</strong> {{ publication.institution }} ({{ publication.year }})</p>
+          <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+        </div>
       </div>
     </section>
 
     <!-- Anais de Eventos Nacionais e Internacionais -->
     <section>
       <h2>Anais de Eventos Nacionais e Internacionais</h2>
-      <div v-for="publication in proceedings" :key="publication.id" class="publication-item">
-        <h3>{{ publication.title }}</h3>
-        <p><strong>Autores:</strong> {{ publication.authors }}</p>
-        <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
-        <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+      <div v-for="(publication, index) in proceedings" :key="publication.id" 
+           :class="['publication-item', { 'bg-image': true }]"
+           :style="{ backgroundImage: showImage(index) }">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
+          <a :href="publication.link" target="_blank">Disponível em: {{ publication.link }}</a>
+        </div>
       </div>
     </section>
 
     <!-- Resumos Publicados em Anais de Eventos -->
     <section>
       <h2>Resumos Publicados em Anais de Eventos</h2>
-      <div v-for="publication in abstracts" :key="publication.id" class="publication-item">
-        <h3>{{ publication.title }}</h3>
-        <p><strong>Autores:</strong> {{ publication.authors }}</p>
-        <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
+      <div v-for="(publication, index) in abstracts" :key="publication.id" 
+           :class="['publication-item', { 'bg-image': true }]"
+           :style="{ backgroundImage: showImage(index) }">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import pescador from "../../assets/personagens/ilustracao pescador.png"
+import artesana from "../../assets/personagens/ilustracao artesana.png"
+
 export default {
   data() {
     return {
@@ -150,19 +173,45 @@ export default {
           year: 2020,
         },
       ],
+      backgroundImages: [
+        artesana,
+        pescador
+      ],
     };
+  },
+  methods: {
+    showImage(index) {
+      return index % 2 === 0 ? `url(${this.backgroundImages[0]})` : `url(${this.backgroundImages[1]})`;
+    },
   },
 };
 </script>
 
 <style scoped>
+.title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-bottom: 15px;
+}
+
+.publication-content {
+  position: relative;
+  width: 80%;
+  z-index: 2; 
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 5px;
+}
+
 .publications-container {
-  max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 h1 {
@@ -175,22 +224,31 @@ section {
 }
 
 h2 {
-  color: #4CAF50;
+  color: #2F4858;
   margin-bottom: 20px;
 }
 
 .publication-item {
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #C4A968;
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.bg-image {
+  background-size: 150px;
+  background-position: right;
+  background-repeat: no-repeat;
 }
 
 h3 {
   font-size: 18px;
-  color: #333;
+  color: #2E8B57;
   margin-bottom: 10px;
 }
 
