@@ -2,6 +2,11 @@
   <div class="publications-container">
     <h1 class="title">Publicações do Projeto</h1>
 
+    <!-- Loader -->
+    <div v-if="isLoading" class="loader-container">
+      <div class="loader"></div>
+    </div>
+
     <!-- Artigos -->
     <section class="section" v-if="articles.length > 0">
       <h2>Artigos Publicados</h2>
@@ -78,6 +83,7 @@ import { useNuxtApp } from "#app";
 export default {
   data() {
     return {
+      isLoading: true,
       articles: [],
       bookChapters: [],
       masterTheses: [],
@@ -91,7 +97,7 @@ export default {
   methods: {
     async fetchPublications() {
       try {
-        const { $database } = useNuxtApp(); // Acessando o banco do Firebase via plugin
+        const { $database } = useNuxtApp();
         const dbRef = ref($database, "posts");
 
         const snapshot = await get(dbRef);
@@ -127,14 +133,40 @@ export default {
         }
       } catch (error) {
         console.error("Erro ao recuperar publicações: ", error);
+      }finally {
+        this.isLoading = false; 
       }
     },
   },
 };
 </script>
 
-
 <style scoped>
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loader {
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid #3498db; 
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .section {
   margin-left: 5%;
 }
@@ -143,7 +175,8 @@ export default {
   text-align: center;
   font-size: 40px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  margin-top: 10px;
   text-transform: uppercase;
   letter-spacing: 3px;
   padding-bottom: 15px;
