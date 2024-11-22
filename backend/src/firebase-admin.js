@@ -1,6 +1,8 @@
+// firebas-admin.js
 require('dotenv').config();
 
 const admin = require('firebase-admin');
+const database = admin.database();
 
 const serviceAccount = {
   type: "service_account",
@@ -11,8 +13,10 @@ const serviceAccount = {
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL
+  client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+  database_url: process.env.FIREBASE_DATABASE_URL
 };
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -23,4 +27,4 @@ const db = admin.firestore();
 const auth = admin.auth();
 const storage = admin.storage().bucket();
 
-module.exports = { admin, db, auth, storage };
+module.exports = { admin, db, auth, storage, database };

@@ -1,6 +1,8 @@
-import { defineNuxtPlugin, useRuntimeConfig } from '#app';
+//firebase.client.js
+import { applyPlugins, defineNuxtPlugin, useRuntimeConfig } from '#app';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, set } from 'firebase/database';
 
 export default defineNuxtPlugin(nuxtApp => {
   try {
@@ -13,16 +15,17 @@ export default defineNuxtPlugin(nuxtApp => {
       storageBucket: runtimeConfig.public.nuxtPublicStorageBucket,
       messagingSenderId: runtimeConfig.public.nuxtPublicMessagingSenderId,
       appId: runtimeConfig.public.nuxtPublicAppId,
-      measurementId: runtimeConfig.public.nuxtPublicMeasurementId
+      measurementId: runtimeConfig.public.nuxtPublicMeasurementId,
+      databaseUrl: runtimeConfig.public.nuxtPublicDatabaseUrl
     };
-
-    console.log(firebaseConfig)
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const database = getDatabase(app)
 
     nuxtApp.provide('auth', auth);
     nuxtApp.provide('signInWithEmailAndPassword', signInWithEmailAndPassword);
+    nuxtApp.provide('database', database)
   } catch (error) {
     console.error('Error initializing Firebase:', error);
   }

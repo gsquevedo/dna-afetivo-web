@@ -13,6 +13,7 @@ export default defineNuxtConfig({
       nuxtPublicMessagingSenderId: process.env.NUXT_PUBLIC_MESSAGING_SENDER_ID,
       nuxtPublicAppId: process.env.NUXT_PUBLIC_APP_ID,
       nuxtPublicMeasurementId: process.env.NUXT_PUBLIC_MEASUREMENT_ID,
+      nuxtPublicDatabaseUrl: process.env.FIREBASE_DATABASE_URL
     }
   },
   ssr: true,
