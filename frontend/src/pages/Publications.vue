@@ -3,7 +3,7 @@
     <h1 class="title">Publicações do Projeto</h1>
 
     <!-- Artigos -->
-    <section v-if="articles.length > 0">
+    <section class="section" v-if="articles.length > 0">
       <h2>Artigos Publicados</h2>
       <div v-for="(publication, index) in articles" :key="publication.id" class="publication-item">
         <div v-if="publication.imageUrl" :style="{ backgroundImage: 'url(' + publication.imageUrl + ')' }" class="publication-image"></div>
@@ -17,7 +17,7 @@
     </section>
 
     <!-- Capítulos de Livros -->
-    <section v-if="bookChapters.length > 0">
+    <section class="section" v-if="bookChapters.length > 0">
       <h2>Capítulos de Livros</h2>
       <div v-for="(publication, index) in bookChapters" :key="publication.id" class="publication-item">
         <div v-if="publication.imageUrl" :style="{ backgroundImage: 'url(' + publication.imageUrl + ')' }" class="publication-image"></div>
@@ -30,104 +30,207 @@
       </div>
     </section>
 
-    <!-- Outros Tipos de Publicações -->
-    <section v-if="otherTypes.length > 0">
-      <h2>Outras Publicações</h2>
-      <div v-for="(publication, index) in otherTypes" :key="publication.id" class="publication-item">
-        <div v-if="publication.imageUrl" :style="{ backgroundImage: 'url(' + publication.imageUrl + ')' }" class="publication-image"></div>
+    <!-- Dissertações de Mestrado -->
+    <section class="section" v-if="masterTheses.length > 0">
+      <h2>Dissertações de Mestrado</h2>
+      <div v-for="(publication, index) in masterTheses" :key="publication.id" class="publication-item">
         <div class="publication-content">
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
-          <p><strong>Tipo:</strong> {{ publication.type }} ({{ publication.year }})</p>
+          <p><strong>Instituição:</strong> {{ publication.institution }} ({{ publication.year }})</p>
           <a :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>
     </section>
 
+    <!-- Anais -->
+    <section class="section" v-if="proceedings.length > 0">
+      <h2>Anais</h2>
+      <div v-for="(publication, index) in proceedings" :key="publication.id" class="publication-item">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
+          <a :href="publication.url" target="_blank">Leia mais</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumos -->
+    <section class="section" v-if="abstracts.length > 0">
+      <h2>Resumos</h2>
+      <div v-for="(publication, index) in abstracts" :key="publication.id" class="publication-item">
+        <div class="publication-content">
+          <h3>{{ publication.title }}</h3>
+          <p><strong>Autores:</strong> {{ publication.authors }}</p>
+          <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
+          <a :href="publication.url" target="_blank">Leia mais</a>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-import { db } from "firebase/database";
+import { ref, get } from "firebase/database";
+import { useNuxtApp } from "#app";
 
 export default {
   data() {
     return {
-      publications: [],
       articles: [],
       bookChapters: [],
-      otherTypes: [], 
+      masterTheses: [],
+      proceedings: [],
+      abstracts: [],
     };
   },
   mounted() {
     this.fetchPublications();
   },
   methods: {
-    fetchPublications() {
-      db.ref('publications').once('value')
-        .then(snapshot => {
+    async fetchPublications() {
+      try {
+        const { $database } = useNuxtApp(); // Acessando o banco do Firebase via plugin
+        const dbRef = ref($database, "posts");
+
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
           const data = snapshot.val();
-          const publicationsArray = [];
-          
-          // Organizando os dados por tipo
+
           for (let id in data) {
             const pub = { id, ...data[id] };
-            publicationsArray.push(pub);
 
-            // Dividir as publicações pelo tipo
-            if (pub.type === 'article') {
-              this.articles.push(pub);
-            } else if (pub.type === 'book-chapter') {
-              this.bookChapters.push(pub);
-            } else {
-              this.otherTypes.push(pub);
+            // Dividindo as publicações por tipo
+            switch (pub.type) {
+              case "article":
+                this.articles.push(pub);
+                break;
+              case "bookChapter":
+                this.bookChapters.push(pub);
+                break;
+              case "dissertation":
+                this.masterTheses.push(pub);
+                break;
+              case "eventProceeding":
+                this.proceedings.push(pub);
+                break;
+              case "abstract":
+                this.abstracts.push(pub);
+                break;
+              default:
+                console.warn(`Tipo desconhecido: ${pub.type}`);
             }
           }
-        })
-        .catch(error => {
-          console.error("Erro ao recuperar publicações: ", error);
-        });
+        } else {
+          console.warn("Nenhuma publicação encontrada.");
+        }
+      } catch (error) {
+        console.error("Erro ao recuperar publicações: ", error);
+      }
     },
   },
 };
 </script>
 
+
 <style scoped>
-.publications-container{
-  width: 100%;
-  height: 100%;
+.section {
+  margin-left: 5%;
 }
 
-.publication-item {
+.title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
   margin-bottom: 20px;
-}
-
-.publication-image {
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-bottom: 15px;
 }
 
 .publication-content {
+  z-index: 2; 
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  margin: 0 auto;
   padding: 10px;
+  position: relative;
+  height: 100%;
 }
 
-.publication-content h3 {
-  font-size: 1.2em;
-}
-
-.publication-content p {
-  font-size: 1em;
-}
-
-.publication-content a {
+a {
+  color: #1E90FF;
   font-size: 1em;
   color: #0066cc;
   text-decoration: none;
 }
 
-.publication-content a:hover {
+h2 {
+  color: #2F4858;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 1.2em;
+  color: #2E8B57;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #555;
+}
+
+h2 {
+  color: #2F4858;
+}
+
+a:hover {
   text-decoration: underline;
 }
+
+.publication-item {
+  background-color: #fff;
+  border: 1px solid #C4A968;
+  width: 95%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .publications-container {
+    padding: 10px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 16px;
+  }
+  p {
+    font-size: 12px;
+  }
+}
+
 </style>
