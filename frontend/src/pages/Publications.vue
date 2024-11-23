@@ -29,7 +29,7 @@
         <div class="publication-content">
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
-          <p><strong>Livro:</strong> {{ publication.journal }} ({{ publication.year }})</p>
+          <p><strong>Livro:</strong> {{ publication.book }} ({{ publication.year }})</p>
           <a :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>

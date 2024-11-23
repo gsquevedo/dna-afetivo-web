@@ -1,7 +1,7 @@
 //firebase.client.js
 import { applyPlugins, defineNuxtPlugin, useRuntimeConfig } from '#app';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -25,6 +25,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.provide('auth', auth);
     nuxtApp.provide('signInWithEmailAndPassword', signInWithEmailAndPassword);
+    nuxtApp.provide('createUserWithEmailAndPassword', createUserWithEmailAndPassword);
     nuxtApp.provide('database', database)
   } catch (error) {
     console.error('Error initializing Firebase:', error);

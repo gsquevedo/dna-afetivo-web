@@ -137,7 +137,7 @@
 import { ref, set } from 'firebase/database';
 
 export default {
-  name: 'IndexAdmin',
+  name: 'PublicationsAdmin',
   data() {
     return {
       newPublication: {

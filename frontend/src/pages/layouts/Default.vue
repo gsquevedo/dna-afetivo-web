@@ -1,15 +1,15 @@
 <template>
   <div class="layout">
-    <!-- Verifica se a rota não é '/login' antes de renderizar a Navbar -->
-    <Navbar v-if="!isLoginPage"/>
+    <!-- Verifica se a rota não é '/login' e '/create' antes de renderizar a Navbar -->
+    <Navbar v-if="!isNoNavbarFooterPage"/>
     <NuxtPage />
-    <Footer v-if="!isLoginPage"/>
+    <Footer v-if="!isNoNavbarFooterPage"/>
   </div>
 </template>
 
 <script>
 import Navbar from "../../components/Navbar.vue";
-import Footer from "../../components/Footer.vue"
+import Footer from "../../components/Footer.vue";
 
 export default {
   components: {
@@ -17,9 +17,9 @@ export default {
     Footer,
   },
   computed: {
-    isLoginPage() {
-      // Verifica a rota atual
-      return this.$route.path === '/admin/login';
+    // Verifica se a rota é '/login' ou '/create'
+    isNoNavbarFooterPage() {
+      return this.$route.path === '/admin/sign-in' || this.$route.path === '/admin/sign-up';
     }
   }
 };

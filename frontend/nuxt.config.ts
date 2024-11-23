@@ -43,19 +43,29 @@ export default defineNuxtConfig({
           file: resolve(__dirname, './src/pages/Actions.vue'),
         },
         {
+          name: 'AddActionPage',
+          path: '/admin/actions',
+          file: resolve(__dirname, './src/pages/admin/AddActions.vue'),
+        },
+        {
           name: 'PublicationsPage',
           path: '/publications',
           file: resolve(__dirname, './src/pages/Publications.vue'),
         },
         {
-          name: 'LoginPage',
-          path: '/admin/login',
-          file: resolve(__dirname, './src/pages/admin/Login.vue'),
+          name: 'SignIn',
+          path: '/admin/sign-in',
+          file: resolve(__dirname, './src/pages/admin/SignIn.vue'),
         },
         {
-          name: 'IndexAdmin',
-          path: '/admin',
-          file: resolve(__dirname, './src/pages/admin/Index.vue'),
+          name: 'PublicationsAdmin',
+          path: '/admin/publications',
+          file: resolve(__dirname, './src/pages/admin/AddPublications.vue'),
+        },
+        {
+          name: 'SignUp',
+          path: '/admin/sign-up',
+          file: resolve(__dirname, './src/pages/admin/SignUp.vue'),
         },
       );
     }
