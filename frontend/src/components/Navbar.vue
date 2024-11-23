@@ -14,10 +14,13 @@
 
       <ul :class="['navbar-links', { open: isMenuOpen }]">
         <li><nuxt-link to="/" exact active-class="active">Sobre</nuxt-link></li>
-        <li><nuxt-link to="/products" active-class="active">Produtos</nuxt-link></li>
-        <li><nuxt-link to="/actions" active-class="active">Ações</nuxt-link></li>
-        <li><nuxt-link to="/publications" active-class="active">Publicações</nuxt-link></li>
-        <li v-if="!isAdmin"><nuxt-link to="/admin/login" active-class="active">Login</nuxt-link></li>
+        <li v-if="isAdmin" ><nuxt-link to="/admin/products" active-class="active">Produtos</nuxt-link></li>
+        <li v-if="!isAdmin"><nuxt-link to="/products" active-class="active">Produtos</nuxt-link></li>
+        <li v-if="isAdmin" ><nuxt-link to="/admin/actions" active-class="active">Ações</nuxt-link></li>
+        <li v-if="!isAdmin"><nuxt-link to="/actions" active-class="active">Ações</nuxt-link></li>
+        <li v-if="isAdmin" ><nuxt-link to="/admin/publications" active-class="active">Publicações</nuxt-link></li>
+        <li v-if="!isAdmin"><nuxt-link to="/publications" active-class="active">Publicações</nuxt-link></li>
+        <li v-if="!isAdmin"><nuxt-link to="/admin/sign-in" active-class="active">Login</nuxt-link></li>
         <li v-if="isAdmin" @click="logout"><nuxt-link to="/" active-class="active">Sair</nuxt-link></li>
       </ul>
     </nav>
@@ -28,6 +31,7 @@
 import logo from "../../assets/logo_icone.png";
 import { Menu as MenuIcon, Close as CloseIcon } from '@vicons/ionicons5';
 import { NIcon } from "naive-ui";
+import { useNuxtApp } from '#app';
 import { useAuthStore } from '../store/auth';
 
 export default {
@@ -47,10 +51,15 @@ export default {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
-    logout() {
-      const authStore = useAuthStore();
-      console.log(authStore)
-      authStore.logout();
+    async logout() {
+      const { $auth } = useNuxtApp();
+
+      try {
+        await $auth.signOut()
+        this.$router.push('/admin/sign-in');
+      } catch (error) {
+        console.error('Erro ao sair:', error);
+      }
     },
   },
   components: {

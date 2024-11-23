@@ -1,13 +1,12 @@
 <template>
   <div class="page">
     <form @submit.prevent="login" class="formLogin">
-      <h1>Login</h1>
+      <h1>Faça seu login!</h1>
       <p>Digite os seus dados de acesso no campo abaixo.</p>
       <label for="email">E-mail</label>
       <input type="email" v-model="email" placeholder="Digite seu e-mail" autofocus required />
       <label for="password">Senha</label>
       <input type="password" v-model="password" placeholder="Digite sua senha" required />
-      <a href="/">Esqueci minha senha</a>
       <input type="submit" value="Acessar" class="btn" />
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </form>
@@ -29,32 +28,12 @@ const errorMessage = ref(null);
 
 const login = async () => {
   try {
-    // Autentica o usuário com Firebase
     const userCredential = await $signInWithEmailAndPassword($auth, email.value, password.value);
     const user = userCredential.user;
 
-    // Obtém o token JWT
-    const token = await user.getIdToken();
-
-    // Envia o token JWT para o backend
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email: email.value })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      console.log('Login bem-sucedido:', data);
+    if (user) {
       authStore.login();
-      // Redirecionar ou armazenar dados do usuário, se necessário
-      router.push('/admin/')
-    } else {
-      errorMessage.value = data.error || 'Erro ao fazer login.';
+      router.push('/');
     }
   } catch (error) {
     console.error("Erro ao fazer login:", error);
@@ -80,7 +59,6 @@ body {
   justify-content: center;
   width: 100%;
   height: 100vh;
-  /* background-color: #480ca8; */
 }
 
 .formLogin {
@@ -115,10 +93,6 @@ body {
   border-radius: 4px;
   transition: all linear 160ms;
   outline: none;
-}
-
-.formLogin input:focus {
-  /* border: 1px solid #f72585; */
 }
 
 .formLogin label {
