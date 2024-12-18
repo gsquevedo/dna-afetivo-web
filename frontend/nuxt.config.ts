@@ -38,6 +38,11 @@ export default defineNuxtConfig({
           file: resolve(__dirname, './src/pages/Products.vue'),
         },
         {
+          name: 'AddProduct',
+          path: '/admin/products',
+          file: resolve(__dirname, './src/pages/admin/AddProduct.vue'),
+        },
+        {
           name: 'ActionsPage',
           path: '/actions',
           file: resolve(__dirname, './src/pages/Actions.vue'),
@@ -51,6 +56,16 @@ export default defineNuxtConfig({
           name: 'PublicationsPage',
           path: '/publications',
           file: resolve(__dirname, './src/pages/Publications.vue'),
+        },
+        {
+          name: 'PhotosPage',
+          path: '/photos',
+          file: resolve(__dirname, './src/pages/Photos.vue'),
+        },
+        {
+          name: 'AddNewPhoto',
+          path: '/admin/photos',
+          file: resolve(__dirname, './src/pages/admin/AddPhotos.vue'),
         },
         {
           name: 'SignIn',
