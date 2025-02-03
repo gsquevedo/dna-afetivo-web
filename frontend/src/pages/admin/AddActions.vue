@@ -9,15 +9,15 @@
         <form @submit.prevent="addExhibition">
           <input v-model="newExhibition.title" placeholder="Título da Exposição" required />
           
-          <input v-model="newExhibition.date" type="date" placeholder="Data" required />
+          <input v-model="newExhibition.event" placeholder="Evento" required />
+
+          <input v-model="newExhibition.date" type="number" placeholder="Ano da Exposição" required />
           
           <input v-model="newExhibition.location" placeholder="Local" required />
           
-          <textarea v-model="newExhibition.description" placeholder="Descrição" required></textarea>
+          <textarea v-model="newExhibition.description" placeholder="Descrição"></textarea>
 
-          <input v-model="newExhibition.participants" placeholder="Participantes (Nomes dos Alunos)" required />
-
-          <input type="file" @change="handleExhibitionImageUpload" accept="image/*" />
+          <input v-model="newExhibition.participants" placeholder="Participantes (Nomes dos Alunos)" />
           
           <button type="submit">Adicionar Exposição</button>
         </form>
@@ -30,15 +30,13 @@
         <form @submit.prevent="addWorkshop">
           <input v-model="newWorkshop.title" placeholder="Título da Oficina" required />
           
-          <input v-model="newWorkshop.date" type="date" placeholder="Data" required />
+          <input v-model="newWorkshop.date" type="number" placeholder="Ano da Oficina" required />
           
           <input v-model="newWorkshop.location" placeholder="Local" required />
           
-          <textarea v-model="newWorkshop.description" placeholder="Descrição" required />
+          <textarea v-model="newWorkshop.description" placeholder="Descrição" />
 
-          <input v-model="newWorkshop.participants" placeholder="Participantes (Nomes dos Alunos)" required />
-
-          <input type="file" @change="handleWorkshopImageUpload" accept="image/*" />
+          <input v-model="newWorkshop.participants" placeholder="Participantes (Nomes dos Alunos)" />
           
           <button type="submit">Adicionar Oficina</button>
         </form>
@@ -56,6 +54,7 @@ export default {
     return {
       newExhibition: {
         title: '',
+        event: '',
         description: '',
         date: '',
         location: '',

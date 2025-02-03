@@ -16,7 +16,7 @@
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
           <p><strong>Periódico:</strong> {{ publication.journal }} ({{ publication.year }})</p>
-          <a :href="publication.url" target="_blank">Leia mais</a>
+          <a v-if="publication.url" :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>
     </section>
@@ -30,7 +30,7 @@
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
           <p><strong>Livro:</strong> {{ publication.book }} ({{ publication.year }})</p>
-          <a :href="publication.url" target="_blank">Leia mais</a>
+          <a v-if="publication.url" :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>
     </section>
@@ -43,7 +43,7 @@
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
           <p><strong>Instituição:</strong> {{ publication.institution }} ({{ publication.year }})</p>
-          <a :href="publication.url" target="_blank">Leia mais</a>
+          <a v-if="publication.url" :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>
     </section>
@@ -56,7 +56,7 @@
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
           <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
-          <a :href="publication.url" target="_blank">Leia mais</a>
+          <a v-if="publication.url" :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>
     </section>
@@ -69,7 +69,7 @@
           <h3>{{ publication.title }}</h3>
           <p><strong>Autores:</strong> {{ publication.authors }}</p>
           <p><strong>Evento:</strong> {{ publication.event }} ({{ publication.year }})</p>
-          <a :href="publication.url" target="_blank">Leia mais</a>
+          <a v-if="publication.url" :href="publication.url" target="_blank">Leia mais</a>
         </div>
       </div>
     </section>

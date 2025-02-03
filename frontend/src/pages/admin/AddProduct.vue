@@ -1,6 +1,13 @@
 <template>
   <div class="add-product">
-    <h2>BEM-VINDO AO PAINEL DE PRODUTOS</h2>
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1>Bem-vindo ao Painel de Administração</h1>
+      <p class="subtitle">Aqui você pode adicionar os novos produtos desenvolvidos pelo Projeto DNA Afetivo.</p>
+      <p v-if="user" class="welcome-message">Olá, <strong>{{ user.email }}</strong>! Estamos felizes em tê-lo de volta.</p>
+    </div>
+
+    <!-- Product Form Section -->
     <div class="form-section">
       <form @submit.prevent="handleSave">
         <div>
@@ -24,7 +31,7 @@
 
         <div>
           <label for="file">Upload de Arquivo (Imagem ou Vídeo)</label>
-          <input type="file" @change="onImageChange" accept="image/*,video/*" />
+          <input type="file" ref="fileInput" @change="onImageChange" accept="image/*,video/*" />
         </div>
 
         <button type="submit">Salvar Produto</button>
@@ -36,19 +43,31 @@
 <script>
 import { ref as dbRef, set } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default {
   name: 'AddProduct',
   data() {
     return {
+      user: null,
       newProduct: {
         name: '',
         description: '',
-        category: 'cartilha', 
+        category: 'cartilha',
       },
       imageUrl: '',
-      selectedFile: null, 
+      selectedFile: null,
     };
+  },
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        this.user = currentUser;
+      } else {
+        this.user = null;
+      }
+    });
   },
   methods: {
     async handleSave() {
@@ -77,13 +96,12 @@ export default {
       if (file) {
         try {
           const storage = getStorage();
-          const fileRef = storageRef(storage, `uploads/${Date.now()}_${file.name}`);
+          const fileRef = storageRef(storage, `products/${this.newProduct.category}/${Date.now()}_${file.name}`);
 
           const snapshot = await uploadBytes(fileRef, file);
-          const downloadURL = await getDownloadURL(snapshot.ref);
+          const downloadURL = await getDownloadURL(snapshot.ref); 
 
-          this.imageUrl = downloadURL;
-          console.log('URL do arquivo:', downloadURL);
+          this.imageUrl = downloadURL; 
         } catch (error) {
           console.error('Erro ao fazer upload do arquivo:', error);
           alert('Erro ao fazer upload do arquivo!');
@@ -99,6 +117,12 @@ export default {
       };
       this.imageUrl = '';
       this.selectedFile = null;
+
+      // Limpar o campo de input de arquivo
+      const fileInput = this.$refs.fileInput;
+      if (fileInput) {
+        fileInput.value = '';
+      }
     },
   },
 };
@@ -106,61 +130,82 @@ export default {
 
 <style scoped>
 .add-product {
-  font-family: Arial, sans-serif;
-  background-color: #F5F5DC;
-  width: auto;
-  flex-direction: column;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  justify-content: flex-start;
+  padding: 40px 0;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 h1 {
-  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.welcome-message {
+  font-size: 1.1rem;
+  color: #2ecc71;
 }
 
 .form-section {
   background-color: #ffffff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 70%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 700px;
 }
 
 form div {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 label {
   font-weight: bold;
+  color: #2c3e50;
+  font-size: 1rem;
 }
 
 input,
 textarea,
 select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
 textarea {
-  height: 100px;
+  height: 120px;
 }
 
 button {
-  padding: 10px 15px;
-  background-color: #4caf50;
+  padding: 12px 20px;
+  background-color: #27ae60;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #2ecc71;
 }
 </style>

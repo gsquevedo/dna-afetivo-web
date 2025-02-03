@@ -67,7 +67,7 @@
           </div>
           <div class="input-group">
             <label for="author">Autor:</label>
-            <input v-model="newPublication.author" type="text" id="author" required>
+            <input v-model="newPublication.authors" type="text" id="author" required>
           </div>
           <div class="input-group">
             <label for="institution">Instituição:</label>
@@ -275,17 +275,18 @@ select {
 }
 
 button {
-  background-color: #007BFF;
+  background-color: #45a049;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  width: 100%;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
 @media (max-width: 768px) {

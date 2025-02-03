@@ -17,7 +17,7 @@
             <img
               v-for="(image, index) in jogoTigreImages"
               :key="index"
-              :src="image"
+              :src="image.mediaUrl"
               alt="Imagem do Jogo do Tigre"
             />
           </div>
@@ -54,15 +54,9 @@
 </template>
 
 <script>
+import { getDatabase, ref as dbRef, get } from 'firebase/database';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { NTabs, NTabPane } from 'naive-ui';
-import image1 from '@/assets/jogotigre/peças costas.jpg';
-import image2 from '@/assets/jogotigre/Peças frente.jpg';
-import image3 from '@/assets/jogotigre/Regras.jpg';
-import image4 from '@/assets/jogotigre/Tabuleiro.jpg';
-import video1 from '@/assets/videos/video-tigre-mini.mp4';
-import video2 from '@/assets/videos/tigre-mini.mp4';
-import video3 from '@/assets/videos/kaingang.mp4';
-import video4 from '@/assets/videos/portugues.mp4';
 
 export default {
   name: 'ProductsPage',
@@ -73,15 +67,62 @@ export default {
   data() {
     return {
       activeTab: 'cartilha',
-      jogoTigreImages: [
-        image1,
-        image2,
-        image3,
-        image4
-      ],
+      jogoTigreImages: [],
       youtubeVideos: ['U-N0DttrAVk', 'RalRxlWdSRE'],
-      videoFiles: [video1, video2, video3, video4],
+      videoFiles: [],
+      user: null,
     };
+  },
+  mounted() {
+    this.fetchProducts();  
+    const auth = getAuth();
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        this.user = currentUser;
+      } else {
+        this.user = null;
+      }
+    });
+  },
+  methods: {
+    async fetchProducts() {
+      try {
+        const db = getDatabase();
+        const productsRef = dbRef(db, 'products');
+        const snapshot = await get(productsRef);
+        if (snapshot.exists()) {
+          const products = snapshot.val();
+          console.log('Produtos recuperados:', products);
+          this.loadCategoryProducts(products);
+        } else {
+          console.log('Nenhum produto encontrado.');
+        }
+      } catch (error) {
+        console.error('Erro ao recuperar produtos do Firebase:', error);
+      }
+    },
+    loadCategoryProducts(products) {
+      this.jogoTigreImages = [];
+      this.videoFiles = [];
+
+      if (products['jogo-do-tigre']) {
+        for (const productId in products['jogo-do-tigre']) {
+          const product = products['jogo-do-tigre'][productId];
+          if (product.mediaUrl) {
+            this.jogoTigreImages.push(product);
+          }
+        }
+      }
+
+      if (products['videos']) {
+        for (const productId in products['videos']) {
+          const product = products['videos'][productId];
+          if (product.mediaUrl) {
+            this.videoFiles.push(product);
+          }
+        }
+      }
+    }
   }
 };
 </script>
@@ -93,12 +134,13 @@ export default {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   padding: 20px;
   box-sizing: border-box;
   text-align: center;
   max-width: 100%;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .tabs-container {
@@ -112,12 +154,14 @@ export default {
 
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
+  justify-items: center; 
 }
 
 .image-grid img {
   width: 100%;
+  max-width: 400px; 
   height: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -156,9 +200,8 @@ export default {
 
   .image-grid img {
     max-height: 80%;
-    max-width: 60%; 
+    max-width: 80%;
     margin: 0 auto;
   }
 }
-
 </style>

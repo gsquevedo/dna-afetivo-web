@@ -38,6 +38,8 @@ export default {
 .album-container {
   text-align: center;
   padding: 20px;
+  width: 100vw;
+  height: 100vh;
 }
 
 h1 {
@@ -47,7 +49,7 @@ h1 {
 
 .album {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid responsivo */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
   gap: 15px;
   padding: 10px;
 }
