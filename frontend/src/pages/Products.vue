@@ -6,21 +6,14 @@
       <!-- Aba Cartilha -->
       <n-tab-pane name="cartilha" tab="Cartilha">
         <h2>Cartilha</h2>
-        <p>A cartilha foi desenvolvida como um material educativo.</p>
-      </n-tab-pane>
-
-      <!-- Aba Jogo do Tigre -->
-      <n-tab-pane name="jogo-do-tigre" tab="Jogo do Tigre">
         <div class="images-container">
-          <h3>Imagens do Jogo do Tigre</h3>
-          <div class="image-grid">
-            <img
-              v-for="(image, index) in jogoTigreImages"
-              :key="index"
-              :src="image.mediaUrl"
-              alt="Imagem do Jogo do Tigre"
-            />
-          </div>
+          <img
+            v-for="(image, index) in cartilhaImages"
+            :key="index"
+            :src="image.mediaUrl"
+            alt="Imagem da Cartilha"
+            class="image-item"
+          />
         </div>
       </n-tab-pane>
 
@@ -34,19 +27,36 @@
             controls
             class="video-player"
           >
-            <source :src="video" type="video/mp4" />
+            <source :src="video.mediaUrl" type="video/mp4" />
             Seu navegador não suporta o elemento de vídeo.
           </video>
+        </div>
+      </n-tab-pane>
 
-          <iframe
-            v-for="(video, index) in youtubeVideos"
-            :key="index"
-            :src="`https://www.youtube.com/embed/${video}`"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="youtube-player"
-          ></iframe>
+      <!-- Aba Jogos Digitais -->
+      <n-tab-pane name="jogos-digitais" tab="Jogos Digitais">
+        <h2>Jogos Digitais</h2>
+        <div class="images-container">
+          <div v-for="(jogo, index) in jogosDigitais" :key="index" class="jogo-item">
+            <img :src="jogo.mediaUrl" alt="Imagem do Jogo Digital" class="image-item" />
+            <p><a :href="jogo.link" target="_blank">Baixar Jogo</a></p>
+          </div>
+        </div>
+      </n-tab-pane>
+
+      <!-- Aba Jogos Impressos -->
+      <n-tab-pane name="jogos-impressos" tab="Jogos Impressos">
+        <h2>Jogos Impressos</h2>
+        <div class="pdf-container">
+          <div v-for="(pdf, index) in jogosImpressos" :key="index" class="pdf-card">
+            <n-icon class="pdf-icon" size="24">
+              <i class="fas fa-file-pdf"></i>
+            </n-icon>
+            <div class="pdf-details">
+              <p class="pdf-name">{{ pdf.name }}</p>
+              <a :href="pdf.mediaUrl" target="_blank" class="pdf-link">Baixar PDF</a>
+            </div>
+          </div>
         </div>
       </n-tab-pane>
     </n-tabs>
@@ -67,21 +77,18 @@ export default {
   data() {
     return {
       activeTab: 'cartilha',
-      jogoTigreImages: [],
-      youtubeVideos: ['U-N0DttrAVk', 'RalRxlWdSRE'],
+      cartilhaImages: [],
+      jogosDigitais: [],
+      jogosImpressos: [],
       videoFiles: [],
       user: null,
     };
   },
   mounted() {
-    this.fetchProducts();  
+    this.fetchProducts();
     const auth = getAuth();
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        this.user = currentUser;
-      } else {
-        this.user = null;
-      }
+      this.user = currentUser || null;
     });
   },
   methods: {
@@ -92,7 +99,6 @@ export default {
         const snapshot = await get(productsRef);
         if (snapshot.exists()) {
           const products = snapshot.val();
-          console.log('Produtos recuperados:', products);
           this.loadCategoryProducts(products);
         } else {
           console.log('Nenhum produto encontrado.');
@@ -102,14 +108,34 @@ export default {
       }
     },
     loadCategoryProducts(products) {
-      this.jogoTigreImages = [];
+      this.cartilhaImages = [];
+      this.jogosDigitais = [];
+      this.jogosImpressos = [];
       this.videoFiles = [];
 
-      if (products['jogo-do-tigre']) {
-        for (const productId in products['jogo-do-tigre']) {
-          const product = products['jogo-do-tigre'][productId];
+      if (products['cartilha']) {
+        for (const productId in products['cartilha']) {
+          const product = products['cartilha'][productId];
           if (product.mediaUrl) {
-            this.jogoTigreImages.push(product);
+            this.cartilhaImages.push(product);
+          }
+        }
+      }
+
+      if (products['jogos-digitais']) {
+        for (const productId in products['jogos-digitais']) {
+          const product = products['jogos-digitais'][productId];
+          if (product.mediaUrl && product.link) {
+            this.jogosDigitais.push(product);
+          }
+        }
+      }
+
+      if (products['jogos-impressos']) {
+        for (const productId in products['jogos-impressos']) {
+          const product = products['jogos-impressos'][productId];
+          if (product.mediaUrl) {
+            this.jogosImpressos.push(product);
           }
         }
       }
@@ -176,11 +202,73 @@ export default {
 
 .video-player,
 .youtube-player {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
+  width: 300px;
+  height: 300px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  margin: 10px;
+}
+
+.image-item {
+  width: 300px;
+  height: 300px; 
+  object-fit: cover; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+}
+
+.pdf-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pdf-card {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.pdf-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-icon {
+  color: #e74c3c;
+  margin-right: 12px;
+}
+
+.pdf-details {
+  flex: 1;
+}
+
+.pdf-name {
+  font-weight: bold;
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.pdf-link {
+  font-size: 13px;
+  color: #3498db;
+  text-decoration: none;
+}
+
+.pdf-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .pdf-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Responsividade para telas menores */

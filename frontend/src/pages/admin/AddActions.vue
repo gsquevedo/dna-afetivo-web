@@ -11,9 +11,9 @@
           
           <input v-model="newExhibition.event" placeholder="Evento" required />
 
-          <input v-model="newExhibition.date" type="number" placeholder="Ano da Exposição" required />
+          <input v-model="newExhibition.year" type="number" placeholder="Ano da Exposição" required />
           
-          <input v-model="newExhibition.location" placeholder="Local" required />
+          <input v-model="newExhibition.institution" placeholder="Instituição" required />
           
           <textarea v-model="newExhibition.description" placeholder="Descrição"></textarea>
 
@@ -30,11 +30,17 @@
         <form @submit.prevent="addWorkshop">
           <input v-model="newWorkshop.title" placeholder="Título da Oficina" required />
           
-          <input v-model="newWorkshop.date" type="number" placeholder="Ano da Oficina" required />
+          <input v-model="newWorkshop.year" type="number" placeholder="Ano da Oficina" required />
           
           <input v-model="newWorkshop.location" placeholder="Local" required />
+
+          <input v-model="newWorkshop.class" placeholder="Classe" required />
+
+          <input v-model="newWorkshop.city" placeholder="Cidade" required />
+
+          <input v-model="newWorkshop.state" placeholder="Estado" required />
           
-          <textarea v-model="newWorkshop.description" placeholder="Descrição" />
+          <textarea v-model="newWorkshop.description" placeholder="Descrição"> </textarea>
 
           <input v-model="newWorkshop.participants" placeholder="Participantes (Nomes dos Alunos)" />
           
@@ -56,15 +62,18 @@ export default {
         title: '',
         event: '',
         description: '',
-        date: '',
-        location: '',
+        year: '',
+        institution: '',
         participants: '',
       },
       newWorkshop: {
         title: '',
         description: '',
-        date: '',
+        year: '',
         location: '',
+        class: '',
+        city: '',
+        state: '',
         participants: '',
       },
     };
@@ -76,9 +85,10 @@ export default {
 
       const exhibitionData = {
         title: this.newExhibition.title,
+        event: this.newExhibition.event,
         description: this.newExhibition.description,
-        date: this.newExhibition.date,
-        location: this.newExhibition.location,
+        year: this.newExhibition.year,
+        institution: this.newExhibition.institution,
         participants: this.newExhibition.participants,
       };
 
@@ -94,8 +104,11 @@ export default {
       const workshopData = {
         title: this.newWorkshop.title,
         description: this.newWorkshop.description,
-        date: this.newWorkshop.date,
+        year: this.newWorkshop.year,
         location: this.newWorkshop.location,
+        class: this.newWorkshop.class,
+        city: this.newWorkshop.city,
+        state: this.newWorkshop.state,
         participants: this.newWorkshop.participants,
       };
 
@@ -107,16 +120,20 @@ export default {
     clearExhibitionForm() {
       this.newExhibition.title = '';
       this.newExhibition.description = '';
-      this.newExhibition.date = '';
-      this.newExhibition.location = '';
+      this.newExhibition.event = '';
+      this.newExhibition.year = '';
+      this.newExhibition.institution = '';
       this.newExhibition.participants = '';
     },
 
     clearWorkshopForm() {
       this.newWorkshop.title = '';
       this.newWorkshop.description = '';
-      this.newWorkshop.date = '';
+      this.newWorkshop.year = '';
       this.newWorkshop.location = '';
+      this.newWorkshop.class = '';
+      this.newWorkshop.city = '';
+      this.newWorkshop.state = '';
       this.newWorkshop.participants = '';
     }
   },

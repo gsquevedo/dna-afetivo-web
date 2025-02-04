@@ -6,7 +6,7 @@
         v-for="item in exhibitions"
         :key="item.id"
         :title="item.title"
-        :description="`${item.title}. ${item.type}. ${item.event}. ${item.year}. Instituição promotora: ${item.institution}.`"
+        :description="`${item.event}. ${item.year}. Instituição promotora: ${item.institution}.`"
       />
     </div>
 
@@ -16,7 +16,7 @@
         v-for="item in workshops"
         :key="item.id"
         :title="item.title"
-        :description="`${item.title}. ${item.location} (${item.class}). ${item.city}, ${item.state}. ${item.year}.`"
+        :description="`${item.location} (${item.class}). ${item.city}, ${item.state}. ${item.year}.`"
       />
     </div>
   </div>

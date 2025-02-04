@@ -2,9 +2,7 @@
   <div class="add-product">
     <!-- Welcome Section -->
     <div class="welcome-section">
-      <h1>Bem-vindo ao Painel de Administração</h1>
-      <p class="subtitle">Aqui você pode adicionar os novos produtos desenvolvidos pelo Projeto DNA Afetivo.</p>
-      <p v-if="user" class="welcome-message">Olá, <strong>{{ user.email }}</strong>! Estamos felizes em tê-lo de volta.</p>
+      <h2>BEM-VINDO AO PAINEL DE PRODUTOS</h2>
     </div>
 
     <!-- Product Form Section -->
@@ -22,16 +20,28 @@
 
         <div>
           <label for="category">Categoria</label>
-          <select v-model="newProduct.category" id="category">
+          <select v-model="newProduct.category" id="category" @change="updateFileAccept">
             <option value="cartilha">Cartilha</option>
-            <option value="jogo-do-tigre">Jogo do Tigre</option>
+            <option value="jogos-digitais">Jogos Digitais</option>
+            <option value="jogos-impressos">Jogos Impressos</option>
             <option value="videos">Vídeos</option>
           </select>
         </div>
 
         <div>
-          <label for="file">Upload de Arquivo (Imagem ou Vídeo)</label>
-          <input type="file" ref="fileInput" @change="onImageChange" accept="image/*,video/*" />
+          <label for="file">Upload de Arquivo</label>
+          <input 
+            type="file" 
+            ref="fileInput" 
+            @change="onFileChange" 
+            :accept="fileAccept" 
+            required 
+          />
+        </div>
+
+        <div>
+          <label for="link">Link do Produto (opcional)</label>
+          <input type="url" v-model="newProduct.link" id="link" placeholder="https://example.com" />
         </div>
 
         <button type="submit">Salvar Produto</button>
@@ -54,24 +64,40 @@ export default {
         name: '',
         description: '',
         category: 'cartilha',
+        link: '', 
       },
-      imageUrl: '',
       selectedFile: null,
+      fileAccept: 'image/*,video/*',
     };
   },
   mounted() {
     const auth = getAuth();
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        this.user = currentUser;
-      } else {
-        this.user = null;
-      }
+      this.user = currentUser || null;
     });
   },
   methods: {
+    updateFileAccept() {
+      if (this.newProduct.category === 'jogos-impressos') {
+        this.fileAccept = 'application/pdf';
+      } else {
+        this.fileAccept = 'image/*,video/*';
+      }
+      this.clearFileInput();
+    },
+
     async handleSave() {
+      if (!this.selectedFile) {
+        alert('Por favor, faça o upload de um arquivo.');
+        return;
+      }
+
       try {
+        const storage = getStorage();
+        const fileRef = storageRef(storage, `products/${this.newProduct.category}/${Date.now()}_${this.selectedFile.name}`);
+        const snapshot = await uploadBytes(fileRef, this.selectedFile);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
         const db = this.$database;
         const productRef = dbRef(db, `products/${this.newProduct.category}/${Date.now()}`);
 
@@ -79,7 +105,8 @@ export default {
           name: this.newProduct.name,
           description: this.newProduct.description,
           category: this.newProduct.category,
-          mediaUrl: this.imageUrl,
+          mediaUrl: downloadURL,
+          link: this.newProduct.link || null,
         };
 
         await set(productRef, productData);
@@ -91,21 +118,28 @@ export default {
       }
     },
 
-    async onImageChange(event) {
+    onFileChange(event) {
       const file = event.target.files[0];
       if (file) {
-        try {
-          const storage = getStorage();
-          const fileRef = storageRef(storage, `products/${this.newProduct.category}/${Date.now()}_${file.name}`);
+        const isPdf = file.type === 'application/pdf';
+        const isImageOrVideo = file.type.startsWith('image/') || file.type.startsWith('video/');
 
-          const snapshot = await uploadBytes(fileRef, file);
-          const downloadURL = await getDownloadURL(snapshot.ref); 
-
-          this.imageUrl = downloadURL; 
-        } catch (error) {
-          console.error('Erro ao fazer upload do arquivo:', error);
-          alert('Erro ao fazer upload do arquivo!');
+        if (
+          (this.newProduct.category === 'jogos-impressos' && isPdf) ||
+          (this.newProduct.category !== 'jogos-impressos' && isImageOrVideo)
+        ) {
+          this.selectedFile = file;
+        } else {
+          alert('Tipo de arquivo inválido para a categoria selecionada.');
+          this.clearFileInput();
         }
+      }
+    },
+
+    clearFileInput() {
+      this.selectedFile = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = '';
       }
     },
 
@@ -114,15 +148,9 @@ export default {
         name: '',
         description: '',
         category: 'cartilha',
+        link: '',
       };
-      this.imageUrl = '';
-      this.selectedFile = null;
-
-      // Limpar o campo de input de arquivo
-      const fileInput = this.$refs.fileInput;
-      if (fileInput) {
-        fileInput.value = '';
-      }
+      this.clearFileInput();
     },
   },
 };
@@ -135,30 +163,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   padding: 40px 0;
 }
 
 .welcome-section {
   text-align: center;
   margin-bottom: 30px;
-}
-
-h1 {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: #7f8c8d;
-  margin-bottom: 20px;
-}
-
-.welcome-message {
-  font-size: 1.1rem;
-  color: #2ecc71;
 }
 
 .form-section {
@@ -191,18 +201,14 @@ select {
   font-size: 1rem;
 }
 
-textarea {
-  height: 120px;
-}
-
 button {
   padding: 12px 20px;
   background-color: #27ae60;
+  width: 100%;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
 }
 
 button:hover {
