@@ -25,7 +25,7 @@ export default {
   methods: {
     async loadImages() {
       const storage = getStorage();
-      const storageRef = ref(storage, "photos/"); // Pasta "photos" no Firebase Storage
+      const storageRef = ref(storage, "photos/");
       try {
         const result = await listAll(storageRef);
         const imageUrls = await Promise.all(
