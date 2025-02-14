@@ -3,15 +3,17 @@
     <h1>Álbum de Fotos</h1>
     <div class="album">
       <div v-for="(image, index) in images" :key="index" class="album-item">
-        <img :src="`/images/${image}`" :alt="'Imagem ' + (index + 1)" />
+        <img :src="image" :alt="'Imagem ' + (index + 1)" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+
 export default {
-  name: 'PhotosPage',
+  name: "PhotosPage",
   data() {
     return {
       images: [],
@@ -21,14 +23,18 @@ export default {
     this.loadImages();
   },
   methods: {
-    loadImages() {
-      this.images = [
-        'image1.jpg',
-        'image2.jpg',
-        'image3.jpg',
-        'image4.jpg',
-        'image5.jpg',
-      ];
+    async loadImages() {
+      const storage = getStorage();
+      const storageRef = ref(storage, "photos/"); // Pasta "photos" no Firebase Storage
+      try {
+        const result = await listAll(storageRef);
+        const imageUrls = await Promise.all(
+          result.items.map((item) => getDownloadURL(item))
+        );
+        this.images = imageUrls;
+      } catch (error) {
+        console.error("Erro ao carregar as imagens:", error);
+      }
     },
   },
 };
@@ -38,39 +44,46 @@ export default {
 .album-container {
   text-align: center;
   padding: 20px;
+  max-width: 1200px;
   width: 100vw;
   height: 100vh;
+  margin: 0 auto;
 }
 
 h1 {
   color: #333;
   margin-bottom: 30px;
+  font-size: 2rem;
 }
 
 .album {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
-  padding: 10px;
 }
 
 .album-item {
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  background-color: #f0f8ff;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.album-item:hover {
+  transform: scale(1.05);
 }
 
 .album-item img {
   width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 @media (max-width: 600px) {
   .album {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
 }
 </style>

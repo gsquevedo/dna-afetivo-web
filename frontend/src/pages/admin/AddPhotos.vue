@@ -1,79 +1,203 @@
 <template>
-  <div class="upload-container">
-    <h1>Adicionar Nova Foto ao Álbum</h1>
-    <div class="form-section">
-      <form @submit.prevent="handleUpload">
-        <input type="file" @change="handleFileChange" accept="image/*" required />
-        <input v-model="photoYear" type="number" placeholder="Ano" required />
-        <input v-model="photoProject" type="text" placeholder="Projeto" required />
-        <textarea v-model="photoCaption" placeholder="Legenda curta" required></textarea>
-        <button type="submit">Adicionar foto</button>
-      </form>
+  <div class="photo-panel">
+    <h1>Painel de Fotos</h1>
+    <form @submit.prevent="uploadPhoto" class="upload-form">
+      <div class="form-group">
+        <label for="photoTitle">Título da Foto</label>
+        <input
+          type="text"
+          v-model="photoTitle"
+          id="photoTitle"
+          required
+          placeholder="Digite o título da foto"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="photoFile">Selecione a Foto</label>
+        <input
+          type="file"
+          ref="fileInput"
+          @change="onFileChange"
+          accept="image/*"
+          required
+        />
+      </div>
+
+      <button type="submit" class="upload-button">Adicionar Foto</button>
+    </form>
+
+    <div v-if="uploadProgress > 0" class="progress-container">
+      <p>Progresso do Upload: {{ uploadProgress }}%</p>
+      <div class="progress-bar">
+        <div class="progress-fill" :style="{ width: uploadProgress + '%' }"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 export default {
-  name: 'AddNewPhoto',
+  name: "PhotoPanel",
   data() {
     return {
+      photoTitle: "",
       selectedFile: null,
-      photoYear: '',
-      photoProject: '',
-      photoCaption: '',
+      uploadProgress: 0,
     };
-  }
+  },
+  methods: {
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        this.selectedFile = file;
+      } else {
+        alert("Por favor, selecione um arquivo de imagem válido.");
+        this.clearFileInput();
+      }
+    },
+    clearFileInput() {
+      this.selectedFile = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+    },
+    async uploadPhoto() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("Você precisa estar logado para fazer o upload de uma foto.");
+        return;
+      }
+
+      if (!this.selectedFile) {
+        alert("Nenhuma foto selecionada!");
+        return;
+      }
+
+      try {
+        const storage = getStorage();
+        const fileName = `${Date.now()}_${this.selectedFile.name}`;
+        const fileRef = storageRef(storage, `photos/${fileName}`);
+        const uploadTask = uploadBytesResumable(fileRef, this.selectedFile);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            this.uploadProgress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+          },
+          (error) => {
+            console.error("Erro no upload:", error);
+            alert("Erro ao fazer upload da foto.");
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            alert(`Foto "${this.photoTitle}" adicionada com sucesso! URL: ${downloadURL}`);
+            this.resetForm();
+          }
+        );
+      } catch (error) {
+        console.error("Erro no upload:", error);
+        alert("Erro ao adicionar a foto.");
+      }
+    },
+    resetForm() {
+      this.photoTitle = "";
+      this.clearFileInput();
+      this.uploadProgress = 0;
+    },
+  },
 };
 </script>
 
 <style scoped>
-.upload-container {
-  font-family: Arial, sans-serif;
-  background-color: #F5F5DC;
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+.photo-panel {
+  width: 100vw;
+  height: 100vh;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 30px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+  text-align: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-input,
-textarea {
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="text"],
+input[type="file"] {
   padding: 10px;
-  border-radius: 5px;
   border: 1px solid #ccc;
+  border-radius: 6px;
   font-size: 1rem;
+  transition: border 0.3s;
 }
 
-button {
-  padding: 12px;
+input[type="text"]:focus,
+input[type="file"]:focus {
+  /* border-color: #4CAF50; */
+  outline: none;
+}
+
+.upload-button {
+  padding: 12px 20px;
   background-color: #4CAF50;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
   font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.form-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 70%;
-}
-
-button:hover {
+.upload-button:hover {
   background-color: #45a049;
+}
+
+.progress-container {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
 }
 </style>
